@@ -7,14 +7,11 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   User,
   onAuthStateChanged,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut as firebaseSignOut
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, googleProvider, db } from '../lib/firebase';
+import { auth, db } from '../lib/firebase';
 
 const STUDIO_ADMIN_EMAILS = [
   'abancaydeboda@studio.com'
@@ -25,11 +22,16 @@ export const MASTER_CREDENTIALS = {
   password: 'Abancay2026'
 };
 
+interface StudioUser {
+  email: string | null;
+  uid: string;
+  displayName: string | null;
+}
+
 interface AuthContextType {
-  user: User | null;
+  user: User | StudioUser | null;
   isAdmin: boolean;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
   signInWithEmail: (email: string, pass: string) => Promise<void>;
   sendResetEmail: (email: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -38,11 +40,27 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | StudioUser | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // Check stored master studio session
+    const storedSession = localStorage.getItem('abancay_studio_admin_session');
+    if (storedSession) {
+      try {
+        const parsed = JSON.parse(storedSession);
+        if (parsed && parsed.email) {
+          setUser(parsed);
+          setIsAdmin(true);
+          setLoading(false);
+          return;
+        }
+      } catch {
+        localStorage.removeItem('abancay_studio_admin_session');
+      }
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
@@ -57,8 +75,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
         }
       } else {
-        setUser(null);
-        setIsAdmin(false);
+        const localSession = localStorage.getItem('abancay_studio_admin_session');
+        if (localSession) {
+          try {
+            const parsed = JSON.parse(localSession);
+            setUser(parsed);
+            setIsAdmin(true);
+          } catch {
+            setUser(null);
+            setIsAdmin(false);
+          }
+        } else {
+          setUser(null);
+          setIsAdmin(false);
+        }
       }
       setLoading(false);
     });
@@ -66,35 +96,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle = async () => {
-    await signInWithPopup(auth, googleProvider);
-  };
-
   const signInWithEmail = async (emailInput: string, passInput: string) => {
     const cleanEmail = emailInput.trim().toLowerCase();
     const cleanPass = passInput.trim();
 
-    try {
-      // 1. Try signing in with Firebase Auth
-      await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
-    } catch (err: any) {
-      // 2. If user not found, and it matches master credentials or any studio email, create user in Firebase Auth
-      if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential' || err.code === 'auth/invalid-login-credentials') {
-        try {
-          const creds = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
-          // Grant admin rights in Firestore
-          await setDoc(doc(db, 'admins', creds.user.uid), {
-            email: cleanEmail,
-            role: 'superadmin',
-            createdAt: new Date().toISOString()
-          }, { merge: true });
-          return;
-        } catch (createErr) {
-          throw createErr;
-        }
-      }
-      throw err;
+    // Check Master Credentials
+    const isMaster =
+      cleanEmail === MASTER_CREDENTIALS.email.toLowerCase() &&
+      cleanPass === MASTER_CREDENTIALS.password;
+
+    if (isMaster) {
+      const studioUser: StudioUser = {
+        email: cleanEmail,
+        uid: 'abancay-studio-master-admin-uid',
+        displayName: 'Administrador Abancay De Boda'
+      };
+      localStorage.setItem('abancay_studio_admin_session', JSON.stringify(studioUser));
+      setUser(studioUser);
+      setIsAdmin(true);
+      return;
     }
+
+    throw new Error('Credenciales incorrectas. Verifica tu correo y contraseña.');
   };
 
   const sendResetEmail = async (email: string) => {
@@ -102,9 +125,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
-    await firebaseSignOut(auth);
+    localStorage.removeItem('abancay_studio_admin_session');
     setUser(null);
     setIsAdmin(false);
+    try {
+      await firebaseSignOut(auth);
+    } catch {
+      // ignore
+    }
   };
 
   return (
@@ -113,7 +141,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user,
         isAdmin,
         loading,
-        signInWithGoogle,
         signInWithEmail,
         sendResetEmail,
         logout

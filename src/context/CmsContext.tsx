@@ -298,7 +298,13 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setLoading(false);
     });
 
+    // Timeout safety fallback so loading never gets stuck
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
     return () => {
+      clearTimeout(timer);
       unsubSettings();
       unsubPortfolio();
       unsubStories();

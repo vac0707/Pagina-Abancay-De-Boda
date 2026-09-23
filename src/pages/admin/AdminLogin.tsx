@@ -49,7 +49,7 @@ export const AdminLogin: React.FC = () => {
       if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
         setErrorMsg('Credenciales incorrectas. Verifica tu correo y contraseña.');
       } else if (err.code === 'auth/operation-not-allowed') {
-        setErrorMsg('El método de correo y contraseña aún no está activado en Firebase. Usa las credenciales del estudio o el botón de Google.');
+        setErrorMsg('El proveedor de Correo/Contraseña no está habilitado en la consola de Firebase. Por favor avísanos o habilítalo en la consola de Firebase.');
       } else {
         setErrorMsg('Error al iniciar sesión. Verifica tus datos o usa el acceso con Google.');
       }
