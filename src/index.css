@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Bodoni Moda", Georgia, serif;
   
   --color-ivory: #FAF8F5;
   --color-ivory-warm: #F4EFE9;
@@ -42,10 +42,34 @@
   }
 }
 
-/* Editorial utility styles */
+/* Bodoni Editorial Typography Classes */
+.font-bodoni {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
 .font-editorial-serif {
   font-family: var(--font-serif);
   letter-spacing: -0.015em;
+}
+
+/* Fluid responsive titles */
+.text-hero-fluid {
+  font-size: clamp(2.5rem, 5.5vw + 1rem, 5.75rem);
+  line-height: 1.05;
+}
+
+.text-section-fluid {
+  font-size: clamp(2rem, 3.8vw + 0.5rem, 3.75rem);
+  line-height: 1.12;
+}
+
+/* Subtle graphic flourishes inspired by logo */
+.brand-circle-accent {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(182, 147, 82, 0.12);
+  pointer-events: none;
 }
 
 .editorial-divider {
@@ -60,12 +84,13 @@
 .btn-editorial-gold {
   background-color: var(--color-gold);
   color: #FFFFFF;
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   padding: 0.875rem 1.75rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -74,18 +99,19 @@
 .btn-editorial-gold:hover {
   background-color: var(--color-gold-dark);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px -6px rgba(182, 147, 82, 0.35);
+  box-shadow: 0 10px 25px -6px rgba(182, 147, 82, 0.4);
 }
 
 .btn-editorial-outline {
   border: 1px solid var(--color-border-gold);
   color: var(--color-espresso);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   padding: 0.875rem 1.75rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -100,12 +126,13 @@
 .btn-editorial-dark {
   background-color: var(--color-espresso);
   color: #FAF8F5;
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   padding: 0.875rem 1.75rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Sparkles, X, Check, MessageCircle, ArrowRight, RotateCcw } from 'lucide-react';
+import { Sparkles, X, Check, MessageCircle, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PACKAGE_CATEGORIES, PackageItem } from '../data/packages';
 import { STUDIO_INFO } from '../data/studio';
@@ -46,7 +46,7 @@ export const PackageAdvisorModal: React.FC = () => {
     }
 
     if (eventType === 'civil' || eventType === 'sesion') {
-      const pkg = PACKAGE_CATEGORIES[0].items[1] || PACKAGE_CATEGORIES[0].items[0]; // Paquete II
+      const pkg = PACKAGE_CATEGORIES[0].items[1] || PACKAGE_CATEGORIES[0].items[0];
       return {
         pkg,
         reason: "Ideal para matrimonios civiles o sesiones especiales que requieren entre 1 y 2 horas con entrega de galería digital en alta definición."
@@ -76,17 +76,17 @@ export const PackageAdvisorModal: React.FC = () => {
     const digitalGroup = PACKAGE_CATEGORIES.find(c => c.key === 'fotovideo');
     if (hours === 'full') {
       return {
-        pkg: digitalGroup?.items[5] || digitalGroup?.items[6] || digitalGroup?.items[0]!, // Paquete VIII
+        pkg: digitalGroup?.items[5] || digitalGroup?.items[6] || digitalGroup?.items[0]!,
         reason: "Nuestro paquete digital más solicitado: 8 horas de cobertura completa desde los preparativos, video extendido, reel y sesión preboda gratis."
       };
     } else if (hours === 'medium') {
       return {
-        pkg: digitalGroup?.items[3] || digitalGroup?.items[2] || digitalGroup?.items[0]!, // Paquete V o VI
+        pkg: digitalGroup?.items[3] || digitalGroup?.items[2] || digitalGroup?.items[0]!,
         reason: "Equilibrio perfecto para ceremonias y recepción con foto y video cinematográfico en galería online."
       };
     } else {
       return {
-        pkg: digitalGroup?.items[0] || digitalGroup?.items[1]!, // Paquete III
+        pkg: digitalGroup?.items[0] || digitalGroup?.items[1]!,
         reason: "Cobertura ágil y económica de momentos clave con fotografía y video cinematográfico."
       };
     }
@@ -103,16 +103,16 @@ export const PackageAdvisorModal: React.FC = () => {
 
   return (
     <>
-      {/* Floating Trigger Button on bottom-left */}
+      {/* Discreet Trigger Button on bottom-left - Hidden on mobile so WhatsApp is the sole floating CTA */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-40 flex items-center gap-2.5 px-4 py-3 bg-ivory text-espresso border border-gold/40 shadow-xl rounded-full hover:border-gold hover:shadow-2xl transition-all duration-300 group"
-        aria-label="Abrir asesor de paquetes"
+        className="hidden md:flex fixed bottom-8 left-8 z-40 items-center gap-2.5 px-4 py-3 bg-ivory/95 backdrop-blur-md text-espresso border border-border-gold shadow-xl rounded-full hover:border-gold hover:shadow-2xl transition-all duration-300 group"
+        aria-label="Abrir asesor interactivo de paquetes"
       >
         <span className="w-6 h-6 rounded-full bg-gold/15 text-gold flex items-center justify-center group-hover:bg-gold group-hover:text-white transition-colors">
-          <Sparkles size={14} />
+          <Sparkles size={13} />
         </span>
-        <span className="text-xs font-semibold tracking-wider uppercase">
+        <span className="text-[10px] font-semibold tracking-[0.2em] uppercase">
           Asesor de Paquetes
         </span>
       </button>
@@ -122,21 +122,21 @@ export const PackageAdvisorModal: React.FC = () => {
         {isOpen && (
           <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-lg bg-ivory border border-gold/30 shadow-2xl rounded-sm overflow-hidden flex flex-col"
+              className="relative w-full max-w-lg bg-ivory border border-gold/40 shadow-2xl rounded-xs overflow-hidden flex flex-col"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-border-warm bg-ivory-warm">
                 <div className="flex items-center gap-2.5">
                   <Sparkles size={16} className="text-gold" />
                   <div>
-                    <h3 className="font-editorial-serif text-lg text-espresso font-medium leading-none">
+                    <h3 className="font-bodoni text-lg text-espresso font-medium leading-none">
                       Asesor de Paquetes
                     </h3>
-                    <p className="text-[10px] text-text-muted tracking-wider uppercase mt-1">
+                    <p className="text-[9px] text-text-muted tracking-wider uppercase mt-1">
                       Abancay De Boda
                     </p>
                   </div>
@@ -157,7 +157,7 @@ export const PackageAdvisorModal: React.FC = () => {
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gold block mb-2">
                       Paso 1 de 3
                     </span>
-                    <h4 className="font-editorial-serif text-2xl text-espresso mb-4">
+                    <h4 className="font-bodoni text-2xl text-espresso mb-4">
                       ¿Qué tipo de evento estás celebrando?
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -183,7 +183,7 @@ export const PackageAdvisorModal: React.FC = () => {
                               : 'border-border-warm bg-white hover:border-gold/50'
                           }`}
                         >
-                          <p className="font-editorial-serif text-base text-espresso font-medium">{item.label}</p>
+                          <p className="font-bodoni text-base text-espresso font-medium">{item.label}</p>
                           <p className="text-xs text-text-muted font-light mt-1">{item.desc}</p>
                         </button>
                       ))}
@@ -196,7 +196,7 @@ export const PackageAdvisorModal: React.FC = () => {
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gold block mb-2">
                       Paso 2 de 3
                     </span>
-                    <h4 className="font-editorial-serif text-2xl text-espresso mb-4">
+                    <h4 className="font-bodoni text-2xl text-espresso mb-4">
                       ¿Qué formato de entrega prefieres?
                     </h4>
                     <div className="space-y-3">
@@ -217,7 +217,7 @@ export const PackageAdvisorModal: React.FC = () => {
                               : 'border-border-warm bg-white hover:border-gold/50'
                           }`}
                         >
-                          <p className="font-editorial-serif text-base text-espresso font-medium">{item.label}</p>
+                          <p className="font-bodoni text-base text-espresso font-medium">{item.label}</p>
                           <p className="text-xs text-text-muted font-light mt-1">{item.desc}</p>
                         </button>
                       ))}
@@ -230,7 +230,7 @@ export const PackageAdvisorModal: React.FC = () => {
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gold block mb-2">
                       Paso 3 de 3
                     </span>
-                    <h4 className="font-editorial-serif text-2xl text-espresso mb-4">
+                    <h4 className="font-bodoni text-2xl text-espresso mb-4">
                       ¿Cuántas horas aproximadas de cobertura calculas?
                     </h4>
                     <div className="space-y-3">
@@ -251,7 +251,7 @@ export const PackageAdvisorModal: React.FC = () => {
                               : 'border-border-warm bg-white hover:border-gold/50'
                           }`}
                         >
-                          <p className="font-editorial-serif text-base text-espresso font-medium">{item.label}</p>
+                          <p className="font-bodoni text-base text-espresso font-medium">{item.label}</p>
                           <p className="text-xs text-text-muted font-light mt-1">{item.desc}</p>
                         </button>
                       ))}
@@ -262,17 +262,17 @@ export const PackageAdvisorModal: React.FC = () => {
                 {step === 4 && (
                   <div className="text-left">
                     <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-gold bg-gold/10 px-3 py-1 rounded-full mb-3">
-                      <Sparkles size={12} /> Paquete Ideal Sugerido
+                      <Sparkles size={12} /> Paquete Recomendado
                     </div>
 
-                    <h4 className="font-editorial-serif text-3xl text-espresso mb-1">
+                    <h4 className="font-bodoni text-3xl text-espresso mb-1">
                       {recommendation.pkg.title}
                     </h4>
                     <div className="flex items-baseline gap-2 mb-3">
-                      <span className="font-editorial-serif text-2xl text-gold-dark font-medium">
+                      <span className="font-bodoni text-2xl text-gold-dark font-medium">
                         {recommendation.pkg.price}
                       </span>
-                      <span className="text-xs text-text-muted">
+                      <span className="text-xs text-text-muted font-light">
                         · {recommendation.pkg.duration}
                       </span>
                     </div>
@@ -285,7 +285,7 @@ export const PackageAdvisorModal: React.FC = () => {
                       <span className="text-[10px] uppercase tracking-[0.2em] text-text-dim block mb-2 font-medium">
                         Lo que incluye:
                       </span>
-                      <ul className="space-y-1.5 text-xs text-text-main/90 font-light">
+                      <ul className="space-y-1.5 text-xs text-text-main font-light">
                         {recommendation.pkg.includes.slice(0, 4).map((inc, i) => (
                           <li key={i} className="flex items-center gap-2">
                             <Check size={13} className="text-gold flex-shrink-0" />

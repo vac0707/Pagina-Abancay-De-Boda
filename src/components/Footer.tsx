@@ -13,8 +13,11 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-espresso text-ivory pt-20 pb-12 border-t border-gold/20">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <footer className="relative bg-espresso-deep text-ivory pt-24 pb-14 border-t border-gold/25 overflow-hidden">
+      {/* Brand logo circular accent */}
+      <div className="brand-circle-accent w-[500px] h-[500px] left-10 -bottom-40 opacity-10" />
+
+      <div className="relative max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           
           {/* Brand & Manifesto snippet */}
@@ -24,14 +27,14 @@ export const Footer: React.FC = () => {
                 <img
                   src={STUDIO_INFO.logo}
                   alt={STUDIO_INFO.name}
-                  className="h-10 w-auto object-contain rounded-xs"
+                  className="h-10 w-auto object-contain rounded-xs drop-shadow-md"
                 />
               )}
               <div>
-                <span className="font-editorial-serif text-2xl text-ivory block font-normal">
+                <span className="font-bodoni text-2xl text-ivory block font-normal">
                   {STUDIO_INFO.name}
                 </span>
-                <span className="text-[9px] uppercase tracking-[0.3em] text-gold block">
+                <span className="text-[9px] uppercase tracking-[0.3em] text-gold-light block font-semibold">
                   Studio Fotográfico
                 </span>
               </div>
@@ -41,32 +44,32 @@ export const Footer: React.FC = () => {
               {STUDIO_INFO.manifesto.lead} Fotografía y cinematografía de bodas, celebraciones y momentos que solo ocurren una vez.
             </p>
 
-            <div className="text-xs text-gold/80 font-light">
+            <div className="text-xs text-gold-light font-light">
               <p>Dirección Creativa: <span className="text-ivory font-normal">{STUDIO_INFO.owner}</span></p>
-              <p className="mt-1">{STUDIO_INFO.city}, {STUDIO_INFO.region}</p>
+              <p className="mt-1 text-ivory/60">{STUDIO_INFO.city}, {STUDIO_INFO.region}</p>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="lg:col-span-3">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-bold block mb-5">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-gold-light font-bold block mb-5">
               Explorar
             </span>
-            <ul className="space-y-3 text-xs tracking-wider uppercase font-light text-ivory/80">
+            <ul className="space-y-3 text-xs tracking-wider uppercase font-light text-ivory/70">
               <li>
-                <a href="#bodas" className="hover:text-gold transition-colors">Bodas & Prebodas</a>
+                <a href="#bodas" className="hover:text-gold-light transition-colors">Bodas & Prebodas</a>
               </li>
               <li>
-                <a href="#anuarios" className="hover:text-gold transition-colors">Anuarios Escolares</a>
+                <a href="#anuarios" className="hover:text-gold-light transition-colors">Anuarios Escolares</a>
               </li>
               <li>
-                <a href="#portafolio" className="hover:text-gold transition-colors">Portafolio Visual</a>
+                <a href="#portafolio" className="hover:text-gold-light transition-colors">Portafolio Visual</a>
               </li>
               <li>
-                <a href="#paquetes" className="hover:text-gold transition-colors">Paquetes & Precios</a>
+                <a href="#paquetes-boda" className="hover:text-gold-light transition-colors">Paquetes & Precios</a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-gold transition-colors">Preguntas Frecuentes</a>
+                <a href="#faq" className="hover:text-gold-light transition-colors">Preguntas Frecuentes</a>
               </li>
             </ul>
           </div>
@@ -74,7 +77,7 @@ export const Footer: React.FC = () => {
           {/* Social and Contact */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-bold block mb-5">
+              <span className="text-[10px] uppercase tracking-[0.3em] text-gold-light font-bold block mb-5">
                 Redes & Comunidad
               </span>
               <p className="text-xs text-ivory/70 font-light leading-relaxed mb-6">
@@ -89,7 +92,7 @@ export const Footer: React.FC = () => {
                   className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-ivory hover:border-gold hover:text-gold transition-all"
                   aria-label="Instagram"
                 >
-                  <Instagram size={18} />
+                  <Instagram size={17} />
                 </a>
                 <a
                   href={STUDIO_INFO.socials.facebook}
@@ -98,13 +101,13 @@ export const Footer: React.FC = () => {
                   className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-ivory hover:border-gold hover:text-gold transition-all"
                   aria-label="Facebook"
                 >
-                  <Facebook size={18} />
+                  <Facebook size={17} />
                 </a>
                 <a
                   href={STUDIO_INFO.socials.tiktok}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3.5 h-10 rounded-full border border-white/20 flex items-center justify-center text-[11px] font-bold tracking-wider text-ivory hover:border-gold hover:text-gold transition-all"
+                  className="px-3.5 h-10 rounded-full border border-white/20 flex items-center justify-center text-[10px] font-bold tracking-wider text-ivory hover:border-gold hover:text-gold transition-all"
                   aria-label="TikTok"
                 >
                   TIKTOK

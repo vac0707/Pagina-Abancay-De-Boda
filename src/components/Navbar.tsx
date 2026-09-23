@@ -24,7 +24,8 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      // Switch when scrolled past 60px
+      setIsScrolled(window.scrollY > 60);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -40,7 +41,7 @@ export const Navbar: React.FC = () => {
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'bg-ivory/95 backdrop-blur-md py-3 md:py-3.5 border-b border-border-warm shadow-xs'
-            : 'bg-transparent py-5 md:py-7'
+            : 'bg-gradient-to-b from-black/75 via-black/40 to-transparent py-5 md:py-7'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
@@ -56,15 +57,23 @@ export const Navbar: React.FC = () => {
                 src={STUDIO_INFO.logo}
                 alt={STUDIO_INFO.name}
                 className={`transition-all duration-300 object-contain rounded-xs ${
-                  isScrolled ? 'h-9 md:h-10' : 'h-11 md:h-13'
+                  isScrolled ? 'h-9 md:h-10' : 'h-11 md:h-12 drop-shadow-md'
                 }`}
               />
             ) : null}
             <div className="flex flex-col text-left">
-              <span className="font-editorial-serif text-lg md:text-xl font-medium tracking-tight text-espresso leading-none">
+              <span
+                className={`font-editorial-serif text-lg md:text-xl font-normal tracking-wide leading-none transition-colors duration-300 ${
+                  isScrolled ? 'text-espresso' : 'text-ivory drop-shadow-sm'
+                }`}
+              >
                 {STUDIO_INFO.name}
               </span>
-              <span className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] text-gold font-semibold mt-1">
+              <span
+                className={`text-[8px] md:text-[9px] uppercase tracking-[0.3em] font-semibold mt-1 transition-colors duration-300 ${
+                  isScrolled ? 'text-gold' : 'text-gold-light'
+                }`}
+              >
                 Studio Fotográfico
               </span>
             </div>
@@ -76,7 +85,11 @@ export const Navbar: React.FC = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[11px] font-medium tracking-[0.2em] uppercase text-espresso/80 hover:text-gold transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-gold hover:after:w-full after:transition-all after:duration-300"
+                className={`text-[11px] font-semibold tracking-[0.22em] uppercase transition-colors duration-300 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-gold hover:after:w-full after:transition-all after:duration-300 ${
+                  isScrolled
+                    ? 'text-espresso/80 hover:text-gold'
+                    : 'text-ivory/90 hover:text-white drop-shadow-sm'
+                }`}
               >
                 {link.label}
               </a>
@@ -89,7 +102,11 @@ export const Navbar: React.FC = () => {
               href={whatsappReservationUrl}
               target="_blank"
               rel="noreferrer"
-              className="btn-editorial-gold text-[10px] py-2.5 px-5"
+              className={`text-[10px] py-2.5 px-5 font-semibold tracking-[0.2em] uppercase rounded-xs transition-all duration-300 flex items-center gap-2 ${
+                isScrolled
+                  ? 'btn-editorial-gold'
+                  : 'bg-ivory/95 hover:bg-gold hover:text-white text-espresso shadow-lg hover:shadow-xl'
+              }`}
             >
               <span>RESERVAR FECHA</span>
               <ArrowUpRight size={13} />
@@ -99,7 +116,9 @@ export const Navbar: React.FC = () => {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-espresso hover:text-gold transition-colors focus-visible:outline-none"
+            className={`lg:hidden p-2 transition-colors focus-visible:outline-none ${
+              isScrolled ? 'text-espresso hover:text-gold' : 'text-ivory hover:text-gold-light'
+            }`}
             aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           >
             {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
@@ -115,7 +134,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-ivory flex flex-col justify-between p-8 pt-28 lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-40 bg-espresso flex flex-col justify-between p-8 pt-28 lg:hidden overflow-y-auto"
           >
             <div className="flex flex-col space-y-6 text-center my-auto">
               <span className="text-[10px] uppercase tracking-[0.4em] text-gold font-bold">
@@ -126,14 +145,14 @@ export const Navbar: React.FC = () => {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-editorial-serif text-2xl sm:text-3xl text-espresso hover:text-gold transition-colors font-light tracking-wide"
+                  className="font-editorial-serif text-3xl sm:text-4xl text-ivory hover:text-gold transition-colors font-light tracking-wide"
                 >
                   {link.label}
                 </a>
               ))}
             </div>
 
-            <div className="pt-8 border-t border-border-warm flex flex-col items-center gap-5">
+            <div className="pt-8 border-t border-white/10 flex flex-col items-center gap-5">
               <a
                 href={whatsappReservationUrl}
                 target="_blank"
@@ -145,7 +164,7 @@ export const Navbar: React.FC = () => {
                 <span>RESERVAR FECHA</span>
               </a>
 
-              <div className="flex items-center gap-6 text-xs uppercase tracking-widest text-text-muted">
+              <div className="flex items-center gap-6 text-xs uppercase tracking-widest text-ivory/60">
                 <a
                   href={STUDIO_INFO.socials.instagram}
                   target="_blank"

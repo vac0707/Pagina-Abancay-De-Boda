@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SectionHeading } from '../components/SectionHeading';
 import { PORTFOLIO_ITEMS, PortfolioItem } from '../data/portfolio';
@@ -25,57 +26,65 @@ export const PortfolioSection: React.FC = () => {
     : PORTFOLIO_ITEMS.filter(item => item.category === activeFilter);
 
   return (
-    <section id="portafolio" className="py-24 md:py-36 bg-ivory">
+    <section id="portafolio" className="py-28 md:py-40 bg-ivory">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         <SectionHeading
-          eyebrow="Galería & Estilo"
-          title="Portafolio Editorial"
-          subtitle="Una mirada visual a la luz, emoción y texturas que componen nuestra obra."
+          eyebrow="Galería & Obra"
+          title="Portafolio"
+          italicWord="Visual"
+          subtitle="Una inmersión pura en la luz, los gestos y la atmósfera que definen nuestra mirada."
         />
 
         {/* Minimalist Filter Tabs */}
-        <div className="flex justify-center mb-14 overflow-x-auto py-2 px-2 no-scrollbar">
-          <div className="inline-flex items-center gap-2 sm:gap-4 p-1 border-b border-border-warm">
+        <div className="flex justify-center mb-16 overflow-x-auto py-2 px-2 no-scrollbar">
+          <div className="inline-flex items-center gap-4 sm:gap-6 border-b border-border-warm pb-3">
             {FILTER_CATEGORIES.map((tab) => {
               const isActive = activeFilter === tab.key;
               return (
                 <button
                   key={tab.key}
                   onClick={() => setActiveFilter(tab.key)}
-                  className={`pb-2 px-2 sm:px-3 text-[11px] font-semibold tracking-[0.2em] uppercase transition-all duration-300 relative ${
+                  className={`text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] uppercase transition-all duration-300 relative ${
                     isActive
-                      ? 'text-espresso font-bold after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gold'
+                      ? 'text-espresso font-bold'
                       : 'text-text-muted hover:text-espresso'
                   }`}
                 >
-                  {tab.label}
+                  <span>{tab.label}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeFilterIndicator"
+                      className="absolute -bottom-3 left-0 right-0 h-[2px] bg-gold"
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Editorial Asymmetric Masonry-style Grid */}
+        {/* 80% Photography Editorial Masonry Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 items-start"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-7 items-start"
         >
           <AnimatePresence>
             {filteredItems.map((item, index) => {
-              // Asymmetric span assignments for magazine layout rhythm
-              const isLarge = index % 5 === 0 || index % 5 === 3;
-              const colSpan = isLarge ? 'lg:col-span-7' : 'lg:col-span-5';
+              // Asymmetric span assignments for rich editorial rhythm
+              const isTwoCols = index % 5 === 0 || index % 5 === 3;
+              const colSpan = isTwoCols ? 'lg:col-span-7' : 'lg:col-span-5';
 
               return (
                 <motion.div
                   layout
-                  initial={{ opacity: 0, scale: 0.96 }}
+                  initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.4 }}
                   key={item.id}
-                  className={`${colSpan} group relative overflow-hidden bg-espresso rounded-xs shadow-md`}
+                  className={`${colSpan} group relative overflow-hidden bg-espresso rounded-xs shadow-md border border-border-warm cursor-pointer`}
                 >
                   <div className={`relative w-full ${
                     item.aspect === 'vertical' 
@@ -88,19 +97,26 @@ export const PortfolioSection: React.FC = () => {
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-[0.92] group-hover:brightness-100"
+                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 filter brightness-[0.93] group-hover:brightness-100"
                     />
 
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-espresso/85 via-espresso/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-espresso/90 via-espresso/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Meta info revealed on hover / subtle on mobile */}
-                    <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    {/* Top right discover pill */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/70 backdrop-blur-md text-[9px] uppercase tracking-[0.25em] text-ivory font-semibold rounded-xs border border-white/10">
+                        DESCUBRIR <ArrowUpRight size={11} />
+                      </span>
+                    </div>
+
+                    {/* Meta info revealed on hover / readable on mobile */}
+                    <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
                       <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-1">
                         <span>{item.categoryLabel}</span>
                         <span>{item.year}</span>
                       </div>
-                      <h4 className="font-editorial-serif text-xl sm:text-2xl text-ivory font-light">
+                      <h4 className="font-bodoni text-xl sm:text-2xl text-ivory font-light">
                         {item.title}
                       </h4>
                       <p className="text-xs text-ivory/70 font-light mt-0.5">

@@ -14,6 +14,8 @@ import { SeasonalCampaign } from './components/SeasonalCampaign';
 import { Hero } from './sections/Hero';
 import { Manifesto } from './sections/Manifesto';
 import { Stories } from './sections/Stories';
+import { FeaturedFilmSection } from './sections/FeaturedFilmSection';
+import { SeasonalCampaign as SeasonalSection } from './components/SeasonalCampaign';
 import { Services } from './sections/Services';
 import { WeddingsSection } from './sections/WeddingsSection';
 import { YearbooksSection } from './sections/YearbooksSection';
@@ -44,48 +46,51 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-ivory text-text-main font-sans selection:bg-gold selection:text-white relative">
-      {/* Editorial Navigation */}
+      {/* Editorial Navigation with Hero-to-scroll transitions */}
       <Navbar />
 
       {/* Main Content Sections */}
       <main>
-        {/* 01: Hero Cinematográfico */}
+        {/* 01: Hero 100vh Fullscreen Cinematográfico */}
         <Hero onDiscoverClick={scrollToStories} />
 
         {/* 02: Manifiesto Editorial */}
         <Manifesto />
 
-        {/* 03: Historias Reales */}
+        {/* 03: Historias Reales en Formato Revista */}
         <Stories onPlayVideo={handlePlayVideo} />
 
-        {/* 04: Campaña Automática por Temporada (e.g. Promociones Escolares) */}
+        {/* 04: Bloque Conceptual Destacado Fotografía & Film 50/50 */}
+        <FeaturedFilmSection onPlayVideo={handlePlayVideo} />
+
+        {/* 05: Campaña Automática por Temporada */}
         <SeasonalCampaign onPlayVideo={handlePlayVideo} />
 
-        {/* 05: Servicios Principales */}
+        {/* 06: Servicios Principales en Composición Asimétrica */}
         <Services />
 
-        {/* 06: Sección Específica de Bodas & Colección de Paquetes */}
+        {/* 07: Sección Específica de Bodas con Portada Cinematográfica y Paquetes */}
         <WeddingsSection onPlayVideo={handlePlayVideo} />
 
-        {/* 07: Sección de Anuarios Escolares */}
+        {/* 08: Sección de Anuarios Escolares con Atmósfera Salvia/Marfil */}
         <YearbooksSection onPlayVideo={handlePlayVideo} />
 
-        {/* 08: Portafolio Editorial con Filtros */}
+        {/* 09: Portafolio Editorial (80% fotografía, 20% UI) */}
         <PortfolioSection />
 
-        {/* 09: Nuestra Experiencia & Metodología */}
+        {/* 10: Nuestra Experiencia & Metodología de Trabajo */}
         <Experience />
 
-        {/* 10: El Studio & Nuestra Historia */}
+        {/* 11: El Studio, Dirección Creativa & Historia */}
         <About />
 
-        {/* 11: Testimonios Reales */}
+        {/* 12: Testimonios con Cita Protagonista en Bodoni */}
         <Testimonials />
 
-        {/* 12: Preguntas Frecuentes (FAQ Accordion) */}
+        {/* 13: Preguntas Frecuentes */}
         <FAQSection />
 
-        {/* 13: Contacto & Reserva Directa */}
+        {/* 14: Contacto Cinematográfico con Reserva Directa a WhatsApp */}
         <ContactSection />
       </main>
 
@@ -100,10 +105,10 @@ export default function App() {
         title={activeVideo?.title}
       />
 
-      {/* Floating WhatsApp Action */}
+      {/* Floating WhatsApp Action (Primary Floating CTA on Mobile & Desktop) */}
       <WhatsAppButton />
 
-      {/* Interactive Package Recommendation Advisor */}
+      {/* Interactive Package Recommendation Advisor (Discreet bottom-left on desktop) */}
       <PackageAdvisorModal />
     </div>
   );

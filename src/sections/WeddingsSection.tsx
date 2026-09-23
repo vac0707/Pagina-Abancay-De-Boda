@@ -4,8 +4,7 @@
  */
 
 import React from 'react';
-import { Camera, Film, Heart, Sparkles, MessageCircle, MapPin } from 'lucide-react';
-import { SectionHeading } from '../components/SectionHeading';
+import { Camera, Film, Sparkles, MessageCircle, MapPin, ArrowDown } from 'lucide-react';
 import { VideoPreview } from '../components/VideoPreview';
 import { PackageTabs } from '../components/PackageTabs';
 import { VIDEOS } from '../data/videos';
@@ -24,23 +23,54 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
   )}`;
 
   return (
-    <section id="bodas" className="py-24 md:py-36 bg-ivory">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        
-        {/* Section Intro */}
-        <SectionHeading
-          eyebrow="El Arte de Celebrar"
-          title="Bodas & Matrimonios"
-          subtitle="Una mirada cinematográfica y sensible para el día más trascendente de sus vidas. Honramos el valor irrepetible de cada momento."
-        />
+    <section id="bodas" className="relative bg-ivory">
+      
+      {/* 10. Cinematic Full-Width Entrance Cover for Weddings */}
+      <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex items-center justify-center overflow-hidden bg-espresso text-ivory">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1920"
+            alt="Weddings by Abancay De Boda"
+            loading="lazy"
+            className="w-full h-full object-cover object-center filter brightness-75 contrast-105 scale-105 transition-transform duration-1000"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/60 to-black/40" />
+        </div>
 
-        {/* Experience Philosophy */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
+        {/* Ambient ring accent */}
+        <div className="brand-circle-accent w-[600px] h-[600px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-15" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-gold-light font-semibold block mb-4">
+            WEDDINGS · ABANCAY · APURÍMAC
+          </span>
+          <h2 className="font-bodoni text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-ivory tracking-tight leading-[1.1] mb-6">
+            Una historia merece más <br />
+            <span className="italic font-normal text-gold-light">que simplemente ser documentada.</span>
+          </h2>
+          <p className="text-sm sm:text-base text-ivory/80 font-light max-w-xl mx-auto leading-relaxed mb-8">
+            El testimonio visual de su unión concebido como un film atemporal: sincero, emotivo y cinematográfico.
+          </p>
+          <a
+            href="#paquetes-boda"
+            className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-ivory hover:text-gold transition-colors"
+          >
+            <span>Explorar Colecciones & Cobertura</span>
+            <ArrowDown size={14} className="animate-bounce" />
+          </a>
+        </div>
+      </div>
+
+      {/* Main Wedding Content Container */}
+      <div className="py-24 md:py-36 max-w-7xl mx-auto px-6 md:px-12">
+        
+        {/* Narrative & Film Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-28">
           <div className="lg:col-span-6 space-y-6">
             <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-bold">
-              Narrativa Cinematográfica
+              Narrativa & Autor
             </span>
-            <h3 className="font-editorial-serif text-3xl sm:text-4xl text-espresso font-light leading-snug">
+            <h3 className="font-bodoni text-3xl sm:text-4xl md:text-5xl text-espresso font-light leading-snug">
               Lo único que perdura tras el banquete son las fotografías, el film y las alianzas.
             </h3>
             <p className="text-sm text-text-muted font-light leading-relaxed">
@@ -50,9 +80,9 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
               Trabajamos con óptica de cine de alta gama, estabilización profesional y un revelado digital con paleta de color atemporal que no pasará de moda con los años.
             </p>
 
-            <div className="pt-4 grid grid-cols-2 gap-4 border-t border-border-warm">
+            <div className="pt-4 grid grid-cols-2 gap-6 border-t border-border-warm">
               <div className="flex items-start gap-3">
-                <div className="p-2 rounded-xs bg-ivory-warm text-gold">
+                <div className="p-2.5 rounded-xs bg-ivory-warm text-gold">
                   <Camera size={18} />
                 </div>
                 <div>
@@ -61,7 +91,7 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="p-2 rounded-xs bg-ivory-warm text-gold">
+                <div className="p-2.5 rounded-xs bg-ivory-warm text-gold">
                   <Film size={18} />
                 </div>
                 <div>
@@ -84,23 +114,25 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
         </div>
 
         {/* Preboda Spotlight */}
-        <div className="my-24 p-8 sm:p-12 bg-ivory-warm/60 border border-border-warm rounded-sm">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="my-24 p-8 sm:p-12 lg:p-14 bg-ivory-warm/60 border border-border-warm rounded-sm relative overflow-hidden">
+          <div className="brand-circle-accent w-96 h-96 -right-20 -bottom-20 opacity-20" />
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             <div className="lg:col-span-7">
               <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-bold block mb-2">
                 Experiencia Previa
               </span>
-              <h3 className="font-editorial-serif text-3xl sm:text-4xl text-espresso font-light mb-4">
+              <h3 className="font-bodoni text-3xl sm:text-4xl text-espresso font-light mb-4">
                 Sesión Preboda: El inicio de su recuerdo
               </h3>
               <p className="text-sm text-text-muted font-light leading-relaxed mb-6">
-                Una tarde distendida antes del matrimonio para conectar con el lente, soltar cualquier tensión y atesorar retratos espontáneos en los paisajes más bellos. Incluida de cortesía en nuestros paquetes principales.
+                Una tarde distendida antes del matrimonio para conectar con el lente, soltar cualquier tensión y atesorar retratos espontáneos en los paisajes más bellos de nuestra región. Incluida de cortesía en nuestros paquetes principales.
               </p>
 
               <div className="space-y-3 mb-6">
                 {STUDIO_INFO.preWeddingLocations.map((loc, idx) => (
-                  <div key={idx} className="flex items-start gap-3 text-xs text-text-main/90 font-light">
+                  <div key={idx} className="flex items-start gap-3 text-xs text-text-main font-light">
                     <MapPin size={14} className="text-gold mt-0.5 flex-shrink-0" />
                     <div>
                       <span className="font-semibold text-espresso">{loc.title}:</span>{' '}
@@ -125,16 +157,16 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
         </div>
 
         {/* Packages Presentation */}
-        <div id="paquetes" className="pt-12">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+        <div id="paquetes-boda" className="pt-16">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-[10px] uppercase tracking-[0.35em] text-gold font-bold block mb-2">
               Colecciones & Coberturas
             </span>
-            <h3 className="font-editorial-serif text-3xl sm:text-4xl md:text-5xl text-espresso font-light">
+            <h3 className="font-bodoni text-3xl sm:text-4xl md:text-5xl text-espresso font-light">
               Paquetes de Boda
             </h3>
             <p className="mt-3 text-sm text-text-muted font-light">
-              Diseñados para adaptarse a la magnitud de su celebración: desde coberturas digitales esenciales hasta archivos físicos de colección con equipo doble.
+              Diseñados para adaptarse a la escala de su día: desde coberturas digitales esenciales hasta archivos físicos de colección con equipo doble.
             </p>
           </div>
 

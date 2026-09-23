@@ -8,6 +8,7 @@ import React from 'react';
 interface SectionHeadingProps {
   eyebrow?: string;
   title: string;
+  italicWord?: string;
   subtitle?: string;
   align?: 'left' | 'center';
   darkTheme?: boolean;
@@ -17,6 +18,7 @@ interface SectionHeadingProps {
 export const SectionHeading: React.FC<SectionHeadingProps> = ({
   eyebrow,
   title,
+  italicWord,
   subtitle,
   align = 'center',
   darkTheme = false,
@@ -25,7 +27,12 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   const isCenter = align === 'center';
 
   return (
-    <div className={`mb-12 md:mb-16 ${isCenter ? 'text-center max-w-2xl mx-auto' : 'max-w-xl'} ${className}`}>
+    <div className={`relative mb-14 md:mb-20 ${isCenter ? 'text-center max-w-2xl mx-auto' : 'max-w-xl'} ${className}`}>
+      {/* Delicate background halo circle accent */}
+      <div 
+        className={`brand-circle-accent w-48 h-48 -top-12 ${isCenter ? 'left-1/2 -translate-x-1/2' : '-left-8'} opacity-20 pointer-events-none`}
+      />
+
       {eyebrow && (
         <span 
           className={`block text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.35em] mb-3 ${
@@ -35,13 +42,18 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
           {eyebrow}
         </span>
       )}
+
       <h2 
-        className={`font-editorial-serif text-3xl sm:text-4xl md:text-5xl font-light tracking-tight leading-[1.15] ${
+        className={`font-bodoni text-section-fluid font-light tracking-tight leading-[1.12] ${
           darkTheme ? 'text-ivory' : 'text-espresso'
         }`}
       >
-        {title}
+        {title}{' '}
+        {italicWord && (
+          <span className="italic font-normal text-gold-light">{italicWord}</span>
+        )}
       </h2>
+
       {subtitle && (
         <p 
           className={`mt-4 text-sm md:text-base font-light leading-relaxed ${
@@ -51,6 +63,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
           {subtitle}
         </p>
       )}
+
       <div 
         className={`mt-6 h-[1px] w-12 bg-gold/50 ${isCenter ? 'mx-auto' : ''}`} 
       />

@@ -17,12 +17,13 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 md:py-36 bg-ivory">
+    <section id="faq" className="py-28 md:py-40 bg-ivory">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
         
         <SectionHeading
           eyebrow="Claridad & Condiciones"
-          title="Preguntas Frecuentes"
+          title="Preguntas"
+          italicWord="Frecuentes"
           subtitle="Respuestas claras y detalladas a las consultas más habituales sobre nuestro servicio y proceso de trabajo."
         />
 
@@ -44,7 +45,7 @@ export const FAQSection: React.FC = () => {
                     <span className="text-[9px] uppercase tracking-[0.25em] text-gold font-semibold block mb-1">
                       {item.category}
                     </span>
-                    <h3 className="font-editorial-serif text-lg sm:text-xl text-espresso font-normal leading-snug">
+                    <h3 className="font-bodoni text-lg sm:text-xl text-espresso font-normal leading-snug">
                       {item.question}
                     </h3>
                   </div>

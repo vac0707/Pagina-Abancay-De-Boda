@@ -41,24 +41,28 @@ const STEPS = [
 
 export const Experience: React.FC = () => {
   return (
-    <section className="py-24 md:py-36 bg-ivory-warm/40 border-y border-border-warm">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section className="relative py-28 md:py-40 bg-ivory-warm/40 border-y border-border-warm overflow-hidden">
+      {/* Brand accent circular watermark */}
+      <div className="brand-circle-accent w-[600px] h-[600px] -right-52 top-1/2 -translate-y-1/2 opacity-10" />
+
+      <div className="relative max-w-7xl mx-auto px-6 md:px-12">
         
         <SectionHeading
           eyebrow="Metodología & Confianza"
-          title="Nuestra Experiencia"
+          title="Nuestra"
+          italicWord="Experiencia"
           subtitle="Un proceso fluido, transparente y libre de estrés para que ustedes se enfoquen únicamente en disfrutar."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {STEPS.map((item, idx) => (
             <div
               key={item.step}
-              className="relative p-8 bg-ivory border border-border-warm rounded-sm flex flex-col justify-between hover:border-gold/50 transition-all duration-300 group"
+              className="relative p-8 sm:p-9 bg-ivory border border-border-warm rounded-xs flex flex-col justify-between hover:border-gold/50 transition-all duration-300 group shadow-xs hover:shadow-md"
             >
               <div>
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-border-warm">
-                  <span className="font-editorial-serif text-3xl sm:text-4xl text-gold group-hover:text-gold-dark transition-colors">
+                  <span className="font-bodoni text-3xl sm:text-4xl text-gold group-hover:text-gold-dark transition-colors font-light">
                     {item.step}
                   </span>
                   <span className="text-[9px] uppercase tracking-[0.25em] text-text-dim">
@@ -66,7 +70,7 @@ export const Experience: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="font-editorial-serif text-2xl text-espresso font-light mb-3">
+                <h3 className="font-bodoni text-2xl text-espresso font-light mb-3">
                   {item.title}
                 </h3>
 
@@ -75,8 +79,8 @@ export const Experience: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4">
-                <div className="h-[1px] w-8 bg-gold/40 group-hover:w-16 transition-all duration-300" />
+              <div className="mt-8 pt-4">
+                <div className="h-[1px] w-8 bg-gold/40 group-hover:w-16 transition-all duration-500" />
               </div>
             </div>
           ))}
