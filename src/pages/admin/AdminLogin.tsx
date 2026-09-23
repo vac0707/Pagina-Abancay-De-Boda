@@ -10,7 +10,7 @@ import { Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck, CheckCircle2, KeyRoun
 import { STUDIO_INFO } from '../../data/studio';
 
 export const AdminLogin: React.FC = () => {
-  const { user, isAdmin, signInWithGoogle, signInWithEmail, sendResetEmail } = useAuth();
+  const { user, isAdmin, signInWithEmail, sendResetEmail } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -53,20 +53,6 @@ export const AdminLogin: React.FC = () => {
       } else {
         setErrorMsg('Error al iniciar sesión. Verifica tus datos o usa el acceso con Google.');
       }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    setLoading(true);
-    setErrorMsg(null);
-    try {
-      await signInWithGoogle();
-      navigate('/admin');
-    } catch (err: any) {
-      console.error(err);
-      setErrorMsg('Error al conectar con Google. Verifica que la ventana emergente no esté bloqueada.');
     } finally {
       setLoading(false);
     }
@@ -209,40 +195,6 @@ export const AdminLogin: React.FC = () => {
             <ArrowRight size={14} />
           </button>
         </form>
-
-        <div className="flex items-center gap-3 my-6">
-          <div className="flex-1 h-px bg-border-warm" />
-          <span className="text-[10px] text-text-dim uppercase tracking-widest">O también</span>
-          <div className="flex-1 h-px bg-border-warm" />
-        </div>
-
-        {/* Google Quick Login Button */}
-        <button
-          onClick={handleGoogleLogin}
-          disabled={loading}
-          type="button"
-          className="w-full py-2.5 px-4 bg-espresso hover:bg-espresso-light text-ivory text-xs uppercase tracking-wider font-semibold rounded-xs transition-colors flex items-center justify-center gap-3 shadow-sm cursor-pointer"
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24">
-            <path
-              fill="#EA4335"
-              d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.3 8.9 5 12 5z"
-            />
-            <path
-              fill="#4285F4"
-              d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3L1.6 7.2C.6 9.2 0 11.5 0 14s.6 4.8 1.6 6.8l3.7-2.9c0-.4-.1-.8-.1-1.2z"
-            />
-            <path
-              fill="#34A853"
-              d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.3-6.7-5.3L1.6 16c1.9 3.8 5.8 6.4 10.4 6.4z"
-            />
-          </svg>
-          <span>Acceso Directo con Google</span>
-        </button>
 
         <div className="mt-8 pt-6 border-t border-border-warm text-center flex items-center justify-between text-xs text-text-muted">
           <Link to="/" className="hover:text-gold transition-colors">

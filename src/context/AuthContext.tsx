@@ -17,14 +17,12 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, googleProvider, db } from '../lib/firebase';
 
 const STUDIO_ADMIN_EMAILS = [
-  'vacstudio7@gmail.com',
-  'abancaydeboda@studio.com',
-  'admin@abancaydeboda.pe'
+  'abancaydeboda@studio.com'
 ];
 
 export const MASTER_CREDENTIALS = {
   email: 'abancaydeboda@studio.com',
-  password: 'Abancay2026!'
+  password: 'Abancay2026'
 };
 
 interface AuthContextType {
