@@ -65,8 +65,10 @@ export const Navbar: React.FC = () => {
     { label: 'Ver todos los servicios', path: '/servicios', desc: 'Índice completo del studio', isFeatured: true }
   ];
 
-  // Dynamic header styling: On homepage when not scrolled, dark transparent overlay; when scrolled or on interior pages, warm ivory
-  const useDarkThemeOnNav = isHomePage && !isScrolled;
+  const darkHeroPages = ['/', '/bodas', '/quinceanos', '/cumpleanos', '/50-anos', '/eventos'];
+  const hasDarkHero = darkHeroPages.includes(location.pathname);
+  // Dynamic header styling: On dark hero pages when not scrolled, dark transparent overlay; when scrolled or on interior light pages, warm ivory
+  const useDarkThemeOnNav = hasDarkHero && !isScrolled;
 
   return (
     <>

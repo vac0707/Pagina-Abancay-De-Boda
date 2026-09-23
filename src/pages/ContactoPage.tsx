@@ -8,6 +8,7 @@ import { MessageCircle, Instagram, Facebook, Calendar, MapPin, Clock } from 'luc
 import { SectionHeading } from '../components/SectionHeading';
 import { FAQ_ITEMS } from '../data/faq';
 import { STUDIO_INFO } from '../data/studio';
+import { useCms } from '../context/CmsContext';
 
 const CELEBRATION_OPTIONS = [
   'Boda',
@@ -21,21 +22,37 @@ const CELEBRATION_OPTIONS = [
 ];
 
 export const ContactoPage: React.FC = () => {
+  const { settings, submitInquiry } = useCms();
   const [selectedService, setSelectedService] = useState('Boda');
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [locationName, setLocationName] = useState('');
   const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleWhatsAppSubmit = (e: React.FormEvent) => {
+  const handleWhatsAppSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await submitInquiry({
+        name: name || 'Cliente interesado',
+        service: selectedService,
+        date: date || undefined,
+        location: locationName || undefined,
+        message: message || undefined,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.warn('Could not record inquiry in firestore:', err);
+    }
+
+    const cleanPhone = settings.whatsapp ? settings.whatsapp.replace(/[^0-9]/g, '') : '51983726487';
     const text = encodeURIComponent(
-      `Hola Gustavo, soy ${name || 'un cliente'}. Deseo consultar disponibilidad para (${selectedService})${
+      `Hola, soy ${name || 'un cliente'}. Deseo consultar disponibilidad para (${selectedService})${
         date ? ` en la fecha ${date}` : ''
       }${locationName ? ` en ${locationName}` : ''}.${message ? ` Detalle: ${message}` : ''}`
     );
 
-    window.open(`${STUDIO_INFO.whatsappUrl}?text=${text}`, '_blank');
+    window.open(`https://wa.me/${cleanPhone}?text=${text}`, '_blank');
   };
 
   return (

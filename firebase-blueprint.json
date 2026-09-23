@@ -1,0 +1,220 @@
+{
+  "entities": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Authorized administrator profile",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email", "description": "Admin email address" },
+        "role": { "type": "string", "enum": ["admin", "superadmin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "Global studio configuration and branding",
+      "type": "object",
+      "properties": {
+        "studioName": { "type": "string", "maxLength": 100 },
+        "tagline": { "type": "string", "maxLength": 200 },
+        "owner": { "type": "string", "maxLength": 100 },
+        "city": { "type": "string", "maxLength": 100 },
+        "region": { "type": "string", "maxLength": 100 },
+        "country": { "type": "string", "maxLength": 50 },
+        "whatsapp": { "type": "string", "maxLength": 20 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "email": { "type": "string", "format": "email" },
+        "logo": { "type": "string" },
+        "socials": { "type": "object" },
+        "showFloatingWhatsApp": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studioName", "whatsapp"]
+    },
+    "PageContent": {
+      "title": "PageContent",
+      "description": "Modular content and sections for a specific page",
+      "type": "object",
+      "properties": {
+        "pageKey": { "type": "string", "maxLength": 50 },
+        "title": { "type": "string", "maxLength": 200 },
+        "seoTitle": { "type": "string", "maxLength": 200 },
+        "seoDescription": { "type": "string", "maxLength": 500 },
+        "sections": { "type": "object" },
+        "status": { "type": "string", "enum": ["draft", "published", "hidden"] },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["pageKey", "status"]
+    },
+    "PortfolioItem": {
+      "title": "PortfolioItem",
+      "description": "Photographic work or event showcase",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "enum": ["BODAS", "QUINCEAÑOS", "CUMPLEAÑOS", "50-ANOS", "BAUTIZOS", "ANUARIOS", "SESIONES", "EVENTOS"] },
+        "categoryLabel": { "type": "string", "maxLength": 50 },
+        "image": { "type": "string" },
+        "location": { "type": "string", "maxLength": 100 },
+        "year": { "type": "string", "maxLength": 10 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "gallery": { "type": "array" },
+        "videoUrl": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["draft", "published", "hidden"] },
+        "order": { "type": "number" },
+        "focalPoint": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "image", "status"]
+    },
+    "StoryItem": {
+      "title": "StoryItem",
+      "description": "Documented editorial story chronicle",
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string", "maxLength": 100 },
+        "coupleOrProject": { "type": "string", "maxLength": 200 },
+        "subtitle": { "type": "string", "maxLength": 200 },
+        "coverImage": { "type": "string" },
+        "secondaryImage": { "type": "string" },
+        "location": { "type": "string", "maxLength": 100 },
+        "year": { "type": "string", "maxLength": 10 },
+        "quote": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 3000 },
+        "blocks": { "type": "array" },
+        "videoId": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["draft", "published", "hidden"] },
+        "order": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["slug", "coupleOrProject", "coverImage", "status"]
+    },
+    "PackageItem": {
+      "title": "PackageItem",
+      "description": "Service pricing and feature package",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 50 },
+        "price": { "type": "string", "maxLength": 50 },
+        "pricePrefix": { "type": "string", "maxLength": 20 },
+        "description": { "type": "string", "maxLength": 500 },
+        "features": { "type": "array" },
+        "featured": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["draft", "published", "hidden"] },
+        "order": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "category", "status"]
+    },
+    "TestimonialItem": {
+      "title": "TestimonialItem",
+      "description": "Client review or quote",
+      "type": "object",
+      "properties": {
+        "author": { "type": "string", "maxLength": 100 },
+        "quote": { "type": "string", "maxLength": 1000 },
+        "event": { "type": "string", "maxLength": 100 },
+        "location": { "type": "string", "maxLength": 100 },
+        "year": { "type": "string", "maxLength": 10 },
+        "photo": { "type": "string" },
+        "showOnHome": { "type": "boolean" },
+        "pageTarget": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["draft", "published", "hidden"] },
+        "order": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["author", "quote", "status"]
+    },
+    "FaqItem": {
+      "title": "FaqItem",
+      "description": "Frequently asked question and answer",
+      "type": "object",
+      "properties": {
+        "question": { "type": "string", "maxLength": 300 },
+        "answer": { "type": "string", "maxLength": 2000 },
+        "category": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["draft", "published", "hidden"] },
+        "order": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["question", "answer", "category", "status"]
+    },
+    "MediaItem": {
+      "title": "MediaItem",
+      "description": "Uploaded image or video asset in library",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "title": { "type": "string", "maxLength": 200 },
+        "altText": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 50 },
+        "focalPoint": { "type": "string", "maxLength": 50 },
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["url", "title"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "User consultation submitted through website form",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "service": { "type": "string", "maxLength": 100 },
+        "date": { "type": "string", "maxLength": 50 },
+        "location": { "type": "string", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "status": { "type": "string", "enum": ["new", "contacted", "quoted", "confirmed", "closed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "service", "status"]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Registered studio admins"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Setting" },
+      "description": "Global studio settings and configuration"
+    },
+    "/pages/{pageId}": {
+      "schema": { "$ref": "#/entities/PageContent" },
+      "description": "Customizable page content for the studio"
+    },
+    "/portfolio/{itemId}": {
+      "schema": { "$ref": "#/entities/PortfolioItem" },
+      "description": "Portfolio photographic works"
+    },
+    "/stories/{storyId}": {
+      "schema": { "$ref": "#/entities/StoryItem" },
+      "description": "Editorial stories and wedding chronicles"
+    },
+    "/packages/{packageId}": {
+      "schema": { "$ref": "#/entities/PackageItem" },
+      "description": "Investment packages and feature lists"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": { "$ref": "#/entities/TestimonialItem" },
+      "description": "Client reviews and quotes"
+    },
+    "/faq/{faqId}": {
+      "schema": { "$ref": "#/entities/FaqItem" },
+      "description": "FAQ questions and answers"
+    },
+    "/media/{mediaId}": {
+      "schema": { "$ref": "#/entities/MediaItem" },
+      "description": "Media library assets"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": { "$ref": "#/entities/Inquiry" },
+      "description": "Client form consultation submissions"
+    }
+  }
+}

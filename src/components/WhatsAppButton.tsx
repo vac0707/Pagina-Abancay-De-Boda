@@ -5,14 +5,19 @@
 
 import React, { useState } from 'react';
 import { MessageCircle } from 'lucide-react';
-import { STUDIO_INFO } from '../data/studio';
+import { useCms } from '../context/CmsContext';
 
 export const WhatsAppButton: React.FC = () => {
+  const { settings } = useCms();
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const defaultUrl = `${STUDIO_INFO.whatsappUrl}?text=${encodeURIComponent(
-    'Hola Gustavo, deseo consultar disponibilidad y paquetes con Abancay De Boda.'
-  )}`;
+  if ((settings as any).showFloatingWhatsapp === false) {
+    return null;
+  }
+
+  const cleanPhone = settings.whatsapp ? settings.whatsapp.replace(/[^0-9]/g, '') : '51983726487';
+  const message = settings.whatsappDefaultMessage || 'Hola, deseo consultar disponibilidad y paquetes con Abancay De Boda.';
+  const defaultUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
