@@ -5,8 +5,8 @@
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { useAuth, MASTER_CREDENTIALS } from '../../context/AuthContext';
+import { Eye, EyeOff, Lock, Mail, ArrowRight, ShieldCheck, CheckCircle2, KeyRound, Sparkles } from 'lucide-react';
 import { STUDIO_INFO } from '../../data/studio';
 
 export const AdminLogin: React.FC = () => {
@@ -27,6 +27,12 @@ export const AdminLogin: React.FC = () => {
     }
   }, [user, isAdmin, navigate]);
 
+  const handleFillMasterCredentials = () => {
+    setEmail(MASTER_CREDENTIALS.email);
+    setPassword(MASTER_CREDENTIALS.password);
+    setErrorMsg(null);
+  };
+
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
@@ -40,12 +46,12 @@ export const AdminLogin: React.FC = () => {
       navigate('/admin');
     } catch (err: any) {
       console.error(err);
-      if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
         setErrorMsg('Credenciales incorrectas. Verifica tu correo y contraseña.');
       } else if (err.code === 'auth/operation-not-allowed') {
-        setErrorMsg('El método de correo y contraseña aún no está activado en Firebase. Usa el botón "Iniciar con Google" para acceso inmediato.');
+        setErrorMsg('El método de correo y contraseña aún no está activado en Firebase. Usa las credenciales del estudio o el botón de Google.');
       } else {
-        setErrorMsg('Error al iniciar sesión. Prueba con tu cuenta de Google autorizada.');
+        setErrorMsg('Error al iniciar sesión. Verifica tus datos o usa el acceso con Google.');
       }
     } finally {
       setLoading(false);
@@ -85,7 +91,7 @@ export const AdminLogin: React.FC = () => {
       <div className="w-full max-w-md bg-white border border-border-warm rounded-sm shadow-xl p-8 md:p-10 text-left">
         
         {/* Logo & Branding */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="w-16 h-16 rounded-full overflow-hidden mx-auto mb-4 border border-gold/40 shadow-sm">
             <img src={STUDIO_INFO.logo} alt="Abancay De Boda" className="w-full h-full object-cover" />
           </div>
@@ -98,6 +104,33 @@ export const AdminLogin: React.FC = () => {
           <p className="text-xs text-text-muted mt-1 font-light">
             Administración visual de contenidos y catálogo
           </p>
+        </div>
+
+        {/* Master Credentials Highlight Card */}
+        <div className="mb-6 p-4 bg-ivory rounded-xs border border-gold/40 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] uppercase tracking-wider font-bold text-gold-dark flex items-center gap-1.5">
+              <KeyRound size={13} className="text-gold" />
+              Credenciales de Acceso al Estudio
+            </span>
+            <button
+              type="button"
+              onClick={handleFillMasterCredentials}
+              className="text-[10px] text-espresso bg-gold hover:bg-gold-light font-semibold uppercase px-2 py-0.5 rounded-2xs transition-colors cursor-pointer"
+            >
+              Auto-rellenar
+            </button>
+          </div>
+          <div className="text-[11px] text-espresso space-y-1 font-mono pt-1">
+            <div>
+              <span className="text-text-muted font-sans mr-1">Usuario:</span>
+              <strong className="text-espresso">{MASTER_CREDENTIALS.email}</strong>
+            </div>
+            <div>
+              <span className="text-text-muted font-sans mr-1">Clave:</span>
+              <strong className="text-espresso">{MASTER_CREDENTIALS.password}</strong>
+            </div>
+          </div>
         </div>
 
         {/* Error message */}
@@ -115,40 +148,6 @@ export const AdminLogin: React.FC = () => {
           </div>
         )}
 
-        {/* Google Quick Login Button (Recommended) */}
-        <button
-          onClick={handleGoogleLogin}
-          disabled={loading}
-          type="button"
-          className="w-full py-3 px-4 mb-6 bg-espresso hover:bg-espresso-light text-ivory text-xs uppercase tracking-wider font-semibold rounded-xs transition-colors flex items-center justify-center gap-3 shadow-sm cursor-pointer"
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24">
-            <path
-              fill="#EA4335"
-              d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.3 8.9 5 12 5z"
-            />
-            <path
-              fill="#4285F4"
-              d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3L1.6 7.2C.6 9.2 0 11.5 0 14s.6 4.8 1.6 6.8l3.7-2.9c0-.4-.1-.8-.1-1.2z"
-            />
-            <path
-              fill="#34A853"
-              d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.3-6.7-5.3L1.6 16c1.9 3.8 5.8 6.4 10.4 6.4z"
-            />
-          </svg>
-          <span>Acceso Directo con Google</span>
-        </button>
-
-        <div className="flex items-center gap-3 mb-6">
-          <div className="flex-1 h-px bg-border-warm" />
-          <span className="text-[10px] text-text-dim uppercase tracking-widest">O con credenciales</span>
-          <div className="flex-1 h-px bg-border-warm" />
-        </div>
-
         {/* Form */}
         <form onSubmit={handleEmailLogin} className="space-y-4">
           <div>
@@ -160,7 +159,7 @@ export const AdminLogin: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="ejemplo@abancaydeboda.pe"
+                placeholder="abancaydeboda@studio.com"
                 className="w-full pl-10 pr-4 py-2.5 bg-ivory/50 border border-border-warm rounded-xs text-sm text-espresso focus:outline-none focus:border-gold transition-colors"
                 required
               />
@@ -210,6 +209,40 @@ export const AdminLogin: React.FC = () => {
             <ArrowRight size={14} />
           </button>
         </form>
+
+        <div className="flex items-center gap-3 my-6">
+          <div className="flex-1 h-px bg-border-warm" />
+          <span className="text-[10px] text-text-dim uppercase tracking-widest">O también</span>
+          <div className="flex-1 h-px bg-border-warm" />
+        </div>
+
+        {/* Google Quick Login Button */}
+        <button
+          onClick={handleGoogleLogin}
+          disabled={loading}
+          type="button"
+          className="w-full py-2.5 px-4 bg-espresso hover:bg-espresso-light text-ivory text-xs uppercase tracking-wider font-semibold rounded-xs transition-colors flex items-center justify-center gap-3 shadow-sm cursor-pointer"
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24">
+            <path
+              fill="#EA4335"
+              d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.3 8.9 5 12 5z"
+            />
+            <path
+              fill="#4285F4"
+              d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3L1.6 7.2C.6 9.2 0 11.5 0 14s.6 4.8 1.6 6.8l3.7-2.9c0-.4-.1-.8-.1-1.2z"
+            />
+            <path
+              fill="#34A853"
+              d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.3-6.7-5.3L1.6 16c1.9 3.8 5.8 6.4 10.4 6.4z"
+            />
+          </svg>
+          <span>Acceso Directo con Google</span>
+        </button>
 
         <div className="mt-8 pt-6 border-t border-border-warm text-center flex items-center justify-between text-xs text-text-muted">
           <Link to="/" className="hover:text-gold transition-colors">

@@ -9,6 +9,8 @@ service cloud.firestore {
     function isAdmin() {
       return isSignedIn() && (
         request.auth.token.email == 'vacstudio7@gmail.com' ||
+        request.auth.token.email == 'abancaydeboda@studio.com' ||
+        request.auth.token.email == 'admin@abancaydeboda.pe' ||
         exists(/databases/$(database)/documents/admins/$(request.auth.uid))
       );
     }

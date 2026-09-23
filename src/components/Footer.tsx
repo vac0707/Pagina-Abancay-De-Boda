@@ -176,7 +176,12 @@ export const Footer: React.FC = () => {
 
         {/* Legal & Localized Studio attribution */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-center sm:text-left gap-4 text-[10px] uppercase tracking-[0.25em] text-ivory/40 font-light">
-          <p>© {new Date().getFullYear()} {STUDIO_INFO.name}. Todos los derechos reservados.</p>
+          <p>
+            © {new Date().getFullYear()} {STUDIO_INFO.name}. Todos los derechos reservados. ·{' '}
+            <Link to="/admin" className="hover:text-gold-light transition-colors underline-offset-4 hover:underline">
+              Acceso Estudio
+            </Link>
+          </p>
           <p>Fotografía & Cinematografía Profesional · Dirigido por {STUDIO_INFO.owner} · Abancay, Apurímac</p>
         </div>
       </div>
