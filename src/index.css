@@ -1,36 +1,126 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@200;300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
   
-  --color-bg-dark: #080808;
-  --color-surface-dark: #121212;
-  --color-primary-gold: #C5A059;
-  --color-text-main: #F5F5F5;
-  --color-text-dim: #A0A0A0;
-  --color-border-gold: rgba(197, 160, 89, 0.3);
+  --color-ivory: #FAF8F5;
+  --color-ivory-warm: #F4EFE9;
+  --color-ivory-soft: #FDFCFA;
+  --color-espresso: #1A1614;
+  --color-espresso-deep: #120F0D;
+  --color-espresso-surface: #241F1C;
+  --color-text-main: #241E1A;
+  --color-text-muted: #6B625B;
+  --color-text-dim: #968C83;
+  --color-gold: #B69352;
+  --color-gold-light: #C9A96E;
+  --color-gold-dark: #977637;
+  --color-sage: #5F7366;
+  --color-sage-light: #EBF0EC;
+  --color-blush: #BF918A;
+  --color-blush-light: #FAF2F1;
+  --color-border-warm: rgba(36, 30, 26, 0.09);
+  --color-border-gold: rgba(182, 147, 82, 0.28);
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-bg-dark text-text-main antialiased overflow-x-hidden font-sans;
+    background-color: var(--color-ivory);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background-color: #B69352;
+    color: #FFFFFF;
   }
 }
 
-.tile {
-  @apply bg-surface-dark border border-border-gold rounded-sm p-6 flex flex-col transition-all duration-300;
+/* Editorial utility styles */
+.font-editorial-serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.015em;
 }
 
-.service-card-themed {
-  @apply bg-white/5 border-l-2 border-primary-gold p-4 transition-all hover:bg-white/10;
+.editorial-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(182, 147, 82, 0.35), transparent);
 }
 
-.btn-gold-themed {
-  @apply bg-primary-gold text-black px-6 py-3 font-bold uppercase tracking-widest text-[11px] hover:brightness-110 active:scale-95 transition-all text-center inline-block;
+.editorial-hairline {
+  border-color: rgba(36, 30, 26, 0.08);
 }
 
-.btn-outline-themed {
-  @apply border border-primary-gold text-primary-gold px-6 py-3 text-[11px] uppercase tracking-widest hover:bg-primary-gold hover:text-black transition-all text-center inline-block;
+.btn-editorial-gold {
+  background-color: var(--color-gold);
+  color: #FFFFFF;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 0.875rem 1.75rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-editorial-gold:hover {
+  background-color: var(--color-gold-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -6px rgba(182, 147, 82, 0.35);
+}
+
+.btn-editorial-outline {
+  border: 1px solid var(--color-border-gold);
+  color: var(--color-espresso);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 0.875rem 1.75rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-editorial-outline:hover {
+  border-color: var(--color-gold);
+  background-color: rgba(182, 147, 82, 0.06);
+  color: var(--color-gold-dark);
+}
+
+.btn-editorial-dark {
+  background-color: var(--color-espresso);
+  color: #FAF8F5;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 0.875rem 1.75rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-editorial-dark:hover {
+  background-color: #000000;
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
