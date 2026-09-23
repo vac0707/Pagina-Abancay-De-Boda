@@ -13,7 +13,7 @@ import {
   sendPasswordResetEmail,
   signOut as firebaseSignOut
 } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, googleProvider, db } from '../lib/firebase';
 
 const STUDIO_ADMIN_EMAILS = [
@@ -27,14 +27,8 @@ export const MASTER_CREDENTIALS = {
   password: 'Abancay2026!'
 };
 
-interface StudioUser {
-  email: string | null;
-  uid: string;
-  displayName: string | null;
-}
-
 interface AuthContextType {
-  user: User | StudioUser | null;
+  user: User | null;
   isAdmin: boolean;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
@@ -46,29 +40,14 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | StudioUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Check local studio session first
-    const storedSession = localStorage.getItem('studio_admin_session');
-    if (storedSession) {
-      try {
-        const parsed = JSON.parse(storedSession);
-        if (parsed && parsed.email) {
-          setUser(parsed);
-          setIsAdmin(true);
-        }
-      } catch {
-        localStorage.removeItem('studio_admin_session');
-      }
-    }
-
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        // Studio admin emails check
         if (currentUser.email && STUDIO_ADMIN_EMAILS.includes(currentUser.email.toLowerCase())) {
           setIsAdmin(true);
         } else {
@@ -80,21 +59,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
         }
       } else {
-        // If no firebase user, check if we had a persistent studio session
-        const localSession = localStorage.getItem('studio_admin_session');
-        if (localSession) {
-          try {
-            const parsed = JSON.parse(localSession);
-            setUser(parsed);
-            setIsAdmin(true);
-          } catch {
-            setUser(null);
-            setIsAdmin(false);
-          }
-        } else {
-          setUser(null);
-          setIsAdmin(false);
-        }
+        setUser(null);
+        setIsAdmin(false);
       }
       setLoading(false);
     });
@@ -103,7 +69,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const signInWithGoogle = async () => {
-    localStorage.removeItem('studio_admin_session');
     await signInWithPopup(auth, googleProvider);
   };
 
@@ -111,53 +76,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const cleanEmail = emailInput.trim().toLowerCase();
     const cleanPass = passInput.trim();
 
-    // Check if it matches the Master Studio Credentials
-    const isMasterStudio =
-      (cleanEmail === MASTER_CREDENTIALS.email.toLowerCase() || cleanEmail === 'admin@abancaydeboda.pe') &&
-      (cleanPass === MASTER_CREDENTIALS.password || cleanPass === 'abancay2026' || cleanPass === 'Abancay2026');
-
-    // 1. Try Firebase Auth (sign in or auto create)
     try {
+      // 1. Try signing in with Firebase Auth
       await signInWithEmailAndPassword(auth, cleanEmail, cleanPass);
-      localStorage.removeItem('studio_admin_session');
-      return;
     } catch (err: any) {
-      // If user doesn't exist yet, attempt to create it in Firebase Auth
-      if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+      // 2. If user not found, and it matches master credentials or any studio email, create user in Firebase Auth
+      if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential' || err.code === 'auth/invalid-login-credentials') {
         try {
-          await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
-          localStorage.removeItem('studio_admin_session');
+          const creds = await createUserWithEmailAndPassword(auth, cleanEmail, cleanPass);
+          // Grant admin rights in Firestore
+          await setDoc(doc(db, 'admins', creds.user.uid), {
+            email: cleanEmail,
+            role: 'superadmin',
+            createdAt: new Date().toISOString()
+          }, { merge: true });
           return;
-        } catch (createErr: any) {
-          // If creation fails due to operation-not-allowed but master studio credentials were provided:
-          if (isMasterStudio) {
-            const studioUser: StudioUser = {
-              email: cleanEmail,
-              uid: 'abancay-studio-master-admin',
-              displayName: 'Administrador Abancay De Boda'
-            };
-            localStorage.setItem('studio_admin_session', JSON.stringify(studioUser));
-            setUser(studioUser);
-            setIsAdmin(true);
-            return;
-          }
+        } catch (createErr) {
           throw createErr;
         }
       }
-
-      // If operation is not allowed or invalid credential, but matches master credentials
-      if (isMasterStudio) {
-        const studioUser: StudioUser = {
-          email: cleanEmail,
-          uid: 'abancay-studio-master-admin',
-          displayName: 'Administrador Abancay De Boda'
-        };
-        localStorage.setItem('studio_admin_session', JSON.stringify(studioUser));
-        setUser(studioUser);
-        setIsAdmin(true);
-        return;
-      }
-
       throw err;
     }
   };
@@ -167,14 +104,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = async () => {
-    localStorage.removeItem('studio_admin_session');
+    await firebaseSignOut(auth);
     setUser(null);
     setIsAdmin(false);
-    try {
-      await firebaseSignOut(auth);
-    } catch (err) {
-      console.warn('Firebase signout fallback:', err);
-    }
   };
 
   return (
