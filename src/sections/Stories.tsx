@@ -14,10 +14,7 @@ interface StoriesProps {
 
 export const Stories: React.FC<StoriesProps> = ({ onPlayVideo }) => {
   return (
-    <section id="historias" className="relative py-28 md:py-40 bg-ivory overflow-hidden">
-      {/* Delicate background ambient circle from logo aesthetic */}
-      <div className="brand-circle-accent w-[700px] h-[700px] -right-72 top-40 opacity-10" />
-
+    <section id="historias" className="relative py-28 md:py-40 bg-ivory">
       <div className="relative max-w-7xl mx-auto px-6 md:px-12">
         
         <SectionHeading
@@ -27,7 +24,7 @@ export const Stories: React.FC<StoriesProps> = ({ onPlayVideo }) => {
           subtitle="Cada unión posee una atmósfera irrepetible. Conoce algunas de las bodas y proyectos que hemos tenido el privilegio de documentar."
         />
 
-        <div className="space-y-32 md:space-y-48">
+        <div className="space-y-32 md:space-y-44">
           {REAL_STORIES.map((story, index) => {
             const isReversed = index % 2 === 1;
 
@@ -41,17 +38,17 @@ export const Stories: React.FC<StoriesProps> = ({ onPlayVideo }) => {
                 {/* Visual side: Asymmetric photographic duo */}
                 <div className={`lg:col-span-7 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
                   <div className="relative group">
-                    {/* Primary Image Container with subtle scale on hover */}
-                    <div className="relative overflow-hidden aspect-[4/3] sm:aspect-[16/10] bg-espresso rounded-xs shadow-2xl border border-border-warm">
+                    {/* Primary Image Container */}
+                    <div className="relative overflow-hidden aspect-[4/3] sm:aspect-[16/10] bg-espresso rounded-xs shadow-xl border border-border-warm">
                       <img
                         src={story.coverImage}
                         alt={story.coupleOrProject}
                         loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-104 filter brightness-[0.93] group-hover:brightness-100"
+                        className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-103 filter brightness-[0.94] group-hover:brightness-100"
                       />
                       
-                      {/* Subtle hover overlay with "VER HISTORIA" reveal */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                      {/* Subtle hover reveal */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-espresso/70 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-300" />
                       
                       <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-black/60 backdrop-blur-md text-[10px] uppercase tracking-[0.25em] text-ivory font-semibold rounded-xs border border-white/10">
@@ -73,12 +70,12 @@ export const Stories: React.FC<StoriesProps> = ({ onPlayVideo }) => {
 
                     {/* Secondary overlapping portrait for rich magazine composition */}
                     {story.secondaryImage && (
-                      <div className="hidden sm:block absolute -bottom-10 -right-6 lg:-right-10 w-48 md:w-56 aspect-[3/4] overflow-hidden rounded-xs border-4 border-ivory shadow-2xl bg-espresso z-10">
+                      <div className="hidden sm:block absolute -bottom-10 -right-6 lg:-right-10 w-48 md:w-56 aspect-[3/4] overflow-hidden rounded-xs border-4 border-ivory shadow-xl bg-espresso z-10">
                         <img
                           src={story.secondaryImage}
                           alt={`${story.coupleOrProject} detalle`}
                           loading="lazy"
-                          className="w-full h-full object-cover hover:scale-108 transition-transform duration-700 ease-out filter brightness-[0.95]"
+                          className="w-full h-full object-cover hover:scale-106 transition-transform duration-700 ease-out filter brightness-[0.96]"
                         />
                       </div>
                     )}

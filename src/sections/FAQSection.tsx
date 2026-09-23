@@ -17,7 +17,7 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-28 md:py-40 bg-ivory">
+    <section id="faq" className="py-28 md:py-44 bg-ivory">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
         
         <SectionHeading
@@ -27,31 +27,32 @@ export const FAQSection: React.FC = () => {
           subtitle="Respuestas claras y detalladas a las consultas más habituales sobre nuestro servicio y proceso de trabajo."
         />
 
-        <div className="space-y-4">
+        <div className="divide-y divide-border-warm border-y border-border-warm">
           {FAQ_ITEMS.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
               <div
                 key={index}
-                className="border border-border-warm rounded-xs overflow-hidden bg-ivory-warm/30 transition-colors"
+                className="py-6 sm:py-7 transition-colors"
               >
                 <button
                   onClick={() => toggleIndex(index)}
-                  className="w-full p-6 sm:p-7 text-left flex items-center justify-between gap-4 focus-visible:outline-none"
+                  className="w-full text-left flex items-center justify-between gap-4 focus-visible:outline-none group cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   <div>
                     <span className="text-[9px] uppercase tracking-[0.25em] text-gold font-semibold block mb-1">
                       {item.category}
                     </span>
-                    <h3 className="font-bodoni text-lg sm:text-xl text-espresso font-normal leading-snug">
+                    {/* FAQ questions in Manrope font per typography guidelines */}
+                    <h3 className="font-sans text-base sm:text-lg text-espresso font-normal group-hover:text-gold transition-colors leading-snug">
                       {item.question}
                     </h3>
                   </div>
 
-                  <div className="w-8 h-8 rounded-full border border-border-warm flex items-center justify-center flex-shrink-0 text-gold transition-transform duration-300">
-                    {isOpen ? <Minus size={15} /> : <Plus size={15} />}
+                  <div className="w-7 h-7 rounded-full border border-border-warm flex items-center justify-center flex-shrink-0 text-gold group-hover:border-gold transition-colors duration-300">
+                    {isOpen ? <Minus size={13} /> : <Plus size={13} />}
                   </div>
                 </button>
 
@@ -64,7 +65,7 @@ export const FAQSection: React.FC = () => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 sm:px-7 sm:pb-7 pt-1 border-t border-border-warm/60">
+                      <div className="pt-4 pr-10">
                         <p className="text-xs sm:text-sm text-text-muted font-light leading-relaxed">
                           {item.answer}
                         </p>

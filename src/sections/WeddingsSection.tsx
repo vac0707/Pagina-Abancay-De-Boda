@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Camera, Film, Sparkles, MessageCircle, MapPin, ArrowDown } from 'lucide-react';
+import { Camera, Film, MessageCircle, MapPin, ArrowDown } from 'lucide-react';
 import { VideoPreview } from '../components/VideoPreview';
 import { PackageTabs } from '../components/PackageTabs';
 import { VIDEOS } from '../data/videos';
@@ -25,20 +25,20 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
   return (
     <section id="bodas" className="relative bg-ivory">
       
-      {/* 10. Cinematic Full-Width Entrance Cover for Weddings */}
+      {/* Cinematic Full-Width Entrance Cover for Weddings (Preserved as requested) */}
       <div className="relative min-h-[75vh] md:min-h-[85vh] w-full flex items-center justify-center overflow-hidden bg-espresso text-ivory">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1920"
             alt="Weddings by Abancay De Boda"
             loading="lazy"
-            className="w-full h-full object-cover object-center filter brightness-75 contrast-105 scale-105 transition-transform duration-1000"
+            className="w-full h-full object-cover object-center filter brightness-[0.75] contrast-105 scale-102 transition-transform duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/60 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/60 to-black/35" />
         </div>
 
-        {/* Ambient ring accent */}
-        <div className="brand-circle-accent w-[600px] h-[600px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-15" />
+        {/* Ambient Ring Accent retained on Wedding Entrance Cover */}
+        <div className="brand-circle-accent w-[600px] h-[600px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-gold-light font-semibold block mb-4">
@@ -56,7 +56,7 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
             className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-ivory hover:text-gold transition-colors"
           >
             <span>Explorar Colecciones & Cobertura</span>
-            <ArrowDown size={14} className="animate-bounce" />
+            <ArrowDown size={14} />
           </a>
         </div>
       </div>
@@ -113,10 +113,8 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
           </div>
         </div>
 
-        {/* Preboda Spotlight */}
-        <div className="my-24 p-8 sm:p-12 lg:p-14 bg-ivory-warm/60 border border-border-warm rounded-sm relative overflow-hidden">
-          <div className="brand-circle-accent w-96 h-96 -right-20 -bottom-20 opacity-20" />
-
+        {/* Preboda Spotlight - Clean layout without excess watermark */}
+        <div className="my-24 p-8 sm:p-12 lg:p-14 bg-ivory-warm/60 border border-border-warm rounded-xs relative">
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             <div className="lg:col-span-7">
@@ -158,7 +156,7 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({ onPlayVideo })
 
         {/* Packages Presentation */}
         <div id="paquetes-boda" className="pt-16">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-[10px] uppercase tracking-[0.35em] text-gold font-bold block mb-2">
               Colecciones & Coberturas
             </span>

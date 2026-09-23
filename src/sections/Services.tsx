@@ -15,7 +15,6 @@ interface ServiceEntry {
   image: string;
   imageAspect: string;
   href: string;
-  actionText: string;
   reverseLayout: boolean;
 }
 
@@ -28,7 +27,6 @@ const SERVICES_DATA: ServiceEntry[] = [
     image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200",
     imageAspect: "aspect-[16/10]",
     href: "#bodas",
-    actionText: "Explorar Bodas & Paquetes",
     reverseLayout: false
   },
   {
@@ -39,7 +37,6 @@ const SERVICES_DATA: ServiceEntry[] = [
     image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1000",
     imageAspect: "aspect-[4/5]",
     href: "#anuarios",
-    actionText: "Ver Anuarios Escolares",
     reverseLayout: true
   },
   {
@@ -50,7 +47,6 @@ const SERVICES_DATA: ServiceEntry[] = [
     image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=1200",
     imageAspect: "aspect-[16/10]",
     href: "#portafolio",
-    actionText: "Ver Galería de Sesiones",
     reverseLayout: false
   },
   {
@@ -61,17 +57,13 @@ const SERVICES_DATA: ServiceEntry[] = [
     image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=1000",
     imageAspect: "aspect-[4/5]",
     href: "#contacto",
-    actionText: "Consultar Cobertura",
     reverseLayout: true
   }
 ];
 
 export const Services: React.FC = () => {
   return (
-    <section id="servicios" className="relative py-28 md:py-40 bg-ivory-warm/40 border-t border-border-warm overflow-hidden">
-      {/* Brand accent circle */}
-      <div className="brand-circle-accent w-[600px] h-[600px] -left-64 top-1/3 opacity-10" />
-
+    <section id="servicios" className="relative py-28 md:py-40 bg-ivory-warm/30 border-t border-border-warm">
       <div className="relative max-w-7xl mx-auto px-6 md:px-12">
         
         <SectionHeading
@@ -81,8 +73,8 @@ export const Services: React.FC = () => {
           subtitle="Cada proyecto recibe una mirada estética personalizada y el estándar técnico más riguroso en captura y posproducción."
         />
 
-        <div className="space-y-24 md:space-y-36">
-          {SERVICES_DATA.map((service, index) => {
+        <div className="space-y-28 md:space-y-40">
+          {SERVICES_DATA.map((service) => {
             return (
               <div
                 key={service.number}
@@ -90,34 +82,19 @@ export const Services: React.FC = () => {
                   service.reverseLayout ? 'lg:flex-row-reverse' : ''
                 }`}
               >
-                {/* Large Visual Entry */}
+                {/* Pure Photographic View - Stripped of badges, heavy borders and floating pills */}
                 <div className={`lg:col-span-7 ${service.reverseLayout ? 'lg:order-2' : 'lg:order-1'}`}>
                   <a
                     href={service.href}
-                    className="group block relative overflow-hidden bg-espresso rounded-xs shadow-xl border border-border-warm"
+                    className="group block relative overflow-hidden bg-espresso rounded-xs shadow-md border border-border-warm/60"
                   >
                     <div className={`relative w-full ${service.imageAspect} overflow-hidden`}>
                       <img
                         src={service.image}
                         alt={service.title}
                         loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 filter brightness-[0.92] group-hover:brightness-100"
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-102 filter brightness-[0.95] group-hover:brightness-100"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity" />
-
-                      {/* Floating Category Tag */}
-                      <div className="absolute top-5 left-5">
-                        <span className="text-[10px] uppercase tracking-[0.25em] bg-black/60 backdrop-blur-md text-ivory px-3 py-1.5 rounded-xs border border-white/10 font-medium">
-                          {service.subtitle}
-                        </span>
-                      </div>
-
-                      {/* Hover Pill reveal */}
-                      <div className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-ivory text-espresso text-[10px] font-semibold uppercase tracking-[0.2em] rounded-xs shadow-lg">
-                          DESCUBRIR <ArrowUpRight size={12} />
-                        </span>
-                      </div>
                     </div>
                   </a>
                 </div>
@@ -126,21 +103,22 @@ export const Services: React.FC = () => {
                 <div className={`lg:col-span-5 ${service.reverseLayout ? 'lg:order-1' : 'lg:order-2'}`}>
                   <div className="max-w-md">
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="font-bodoni text-4xl sm:text-5xl text-gold/80 font-light">
+                      <span className="font-bodoni text-3xl sm:text-4xl text-gold/70 font-light">
                         {service.number}
                       </span>
                       <div className="h-[1px] flex-1 bg-border-warm" />
                     </div>
 
-                    <h3 className="font-bodoni text-3xl sm:text-4xl text-espresso font-light mb-3">
+                    {/* Service Name in Manrope per design rule */}
+                    <h3 className="font-sans text-2xl sm:text-3xl text-espresso font-normal tracking-tight mb-2">
                       {service.title}
                     </h3>
 
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-gold-dark font-semibold mb-4">
+                    <p className="text-[10px] uppercase tracking-[0.25em] text-gold-dark font-medium mb-4">
                       {service.subtitle}
                     </p>
 
-                    <p className="text-sm text-text-muted font-light leading-relaxed mb-8">
+                    <p className="text-sm text-text-muted font-light leading-relaxed mb-6">
                       {service.description}
                     </p>
 
@@ -148,8 +126,8 @@ export const Services: React.FC = () => {
                       href={service.href}
                       className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-espresso hover:text-gold transition-colors group"
                     >
-                      <span>{service.actionText}</span>
-                      <ArrowUpRight size={15} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                      <span>Descubrir</span>
+                      <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </a>
                   </div>
                 </div>

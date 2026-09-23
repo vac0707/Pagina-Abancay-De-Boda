@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { BookOpen, User, Users, Palette, Film, Sparkles, MessageCircle, Check, ArrowDown } from 'lucide-react';
+import { BookOpen, User, Users, Palette, Film, Sparkles, MessageCircle, Check } from 'lucide-react';
 import { VideoPreview } from '../components/VideoPreview';
 import { VIDEOS } from '../data/videos';
 import { STUDIO_INFO } from '../data/studio';
@@ -54,61 +54,71 @@ export const YearbooksSection: React.FC<YearbooksSectionProps> = ({ onPlayVideo 
   )}`;
 
   return (
-    <section id="anuarios" className="relative bg-ivory">
+    <section id="anuarios" className="relative bg-ivory border-t border-border-warm">
       
-      {/* 11. Visual Entrance Cover for Anuarios with Sage / Editorial Atmosphere */}
-      <div className="relative min-h-[60vh] md:min-h-[70vh] w-full flex items-center justify-center overflow-hidden bg-espresso text-ivory">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1920"
-            alt="Anuarios Escolares Abancay De Boda"
-            loading="lazy"
-            className="w-full h-full object-cover object-center filter brightness-[0.7] contrast-105 scale-102"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/70 to-black/40" />
-        </div>
+      {/* 9. Editorial Split Entrance Cover for Anuarios (55-60% Photo / 40-45% Editorial Block) */}
+      <div className="relative w-full bg-ivory-warm/40 border-b border-border-warm overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[70vh] lg:min-h-[80vh] items-stretch">
+          
+          {/* Photographic Block: 55-60% on Desktop, Top on Mobile */}
+          <div className="lg:col-span-7 relative min-h-[380px] sm:min-h-[480px] lg:min-h-full overflow-hidden bg-espresso">
+            <img
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1600"
+              alt="Anuarios Escolares Abancay De Boda"
+              loading="lazy"
+              className="w-full h-full object-cover object-center filter brightness-[0.92] contrast-102 scale-[1.01] hover:scale-103 transition-transform duration-1000 ease-out"
+            />
+            {/* Subtle photographic vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-espresso/40 via-transparent to-transparent lg:hidden" />
+          </div>
 
-        {/* Ambient Ring Accent */}
-        <div className="brand-circle-accent w-[500px] h-[500px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-15" />
+          {/* Editorial Block: 40-45% on Desktop with Marfil + Sage + Minimal Gold */}
+          <div className="lg:col-span-5 p-8 sm:p-12 lg:p-16 flex flex-col justify-center bg-ivory">
+            <div className="max-w-lg">
+              <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-sage font-semibold mb-4 px-3 py-1 bg-sage/10 rounded-xs border border-sage/20">
+                ANUARIOS & PROMOCIONES · EDICIÓN EDITORIAL
+              </span>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <span className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] uppercase tracking-[0.4em] text-sage-light font-semibold mb-4 px-3 py-1 bg-sage/30 rounded-full border border-sage/40">
-            <Sparkles size={12} className="text-gold" />
-            <span>ANUARIOS & PROMOCIONES · EDICIÓN EDITORIAL</span>
-          </span>
-          <h2 className="font-bodoni text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-ivory tracking-tight leading-[1.1] mb-6">
-            Tu promoción merece <br />
-            <span className="italic font-normal text-gold-light">quedarse para siempre.</span>
-          </h2>
-          <p className="text-sm sm:text-base text-ivory/80 font-light max-w-xl mx-auto leading-relaxed mb-8">
-            Anuarios y sesiones fotográficas para recordar una etapa que solo se vive una vez. Calidad editorial, diseño a medida y acabados de archivo.
-          </p>
-          <a
-            href="#contenido-anuarios"
-            className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-ivory hover:text-gold transition-colors"
-          >
-            <span>Ver propuesta & acabados</span>
-            <ArrowDown size={14} className="animate-bounce" />
-          </a>
+              <h2 className="font-bodoni text-3xl sm:text-4xl lg:text-5xl text-espresso font-light tracking-tight leading-[1.15] mb-6">
+                Tu promoción merece <br />
+                <span className="italic font-normal text-gold-dark">quedarse para siempre.</span>
+              </h2>
+
+              <p className="text-sm md:text-base text-text-muted font-light leading-relaxed mb-8">
+                Anuarios escolares y sesiones fotográficas para recordar una etapa irrepetible. Dirección de posado, diseño a medida, empastados de alta gama y registro en film documental.
+              </p>
+
+              <div className="pt-2">
+                <a
+                  href="#contenido-anuarios"
+                  className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-espresso hover:text-gold transition-colors"
+                >
+                  <span>Explorar acabados & propuesta</span>
+                  <span className="text-gold">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       {/* Main Yearbooks Content */}
       <div id="contenido-anuarios" className="py-24 md:py-36 max-w-7xl mx-auto px-6 md:px-12">
         
-        {/* Feature Grid with Sage Accents */}
+        {/* Feature Grid with Sage Accents - Clean Editorial presentation */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-24">
           {YEARBOOK_FEATURES.map((feat, index) => {
             const Icon = feat.icon;
             return (
               <div
                 key={index}
-                className="p-8 bg-ivory border border-border-warm rounded-sm hover:border-sage/50 transition-all duration-300 shadow-xs group"
+                className="p-8 bg-ivory border border-border-warm rounded-xs hover:border-sage/50 transition-colors shadow-xs group"
               >
-                <div className="w-11 h-11 rounded-xs bg-sage-light/80 text-sage flex items-center justify-center mb-6 group-hover:bg-sage group-hover:text-white transition-colors duration-300">
-                  <Icon size={20} />
+                <div className="w-10 h-10 rounded-xs bg-sage/10 text-sage flex items-center justify-center mb-6 group-hover:bg-sage group-hover:text-white transition-colors duration-300">
+                  <Icon size={18} />
                 </div>
-                <h3 className="font-bodoni text-2xl text-espresso font-normal mb-2">
+                <h3 className="font-sans text-lg text-espresso font-medium tracking-tight mb-2">
                   {feat.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-text-muted font-light leading-relaxed">
@@ -120,9 +130,7 @@ export const YearbooksSection: React.FC<YearbooksSectionProps> = ({ onPlayVideo 
         </div>
 
         {/* Video & Quote Request Card */}
-        <div className="p-8 sm:p-12 lg:p-14 bg-espresso text-ivory rounded-sm shadow-2xl border border-gold/30 relative overflow-hidden">
-          <div className="brand-circle-accent w-[600px] h-[600px] -right-40 -top-40 opacity-10" />
-
+        <div className="p-8 sm:p-12 lg:p-14 bg-espresso text-ivory rounded-xs shadow-2xl border border-white/10 relative overflow-hidden">
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             <div className="lg:col-span-7 space-y-6">

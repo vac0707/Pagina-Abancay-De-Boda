@@ -8,11 +8,8 @@ import { STUDIO_INFO } from '../data/studio';
 
 export const Manifesto: React.FC = () => {
   return (
-    <section className="relative py-24 md:py-36 bg-ivory-warm/40 border-y border-border-warm overflow-hidden">
-      {/* Brand logo-inspired circular watermark */}
-      <div className="brand-circle-accent w-[500px] h-[500px] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 opacity-15" />
-
-      <div className="relative max-w-4xl mx-auto px-6 md:px-12 text-center">
+    <section className="relative py-24 md:py-36 bg-ivory-warm/30 border-y border-border-warm">
+      <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
         
         <span className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.35em] text-gold block mb-6">
           Manifiesto Editorial

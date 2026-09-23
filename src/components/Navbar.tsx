@@ -24,7 +24,6 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Switch when scrolled past 60px
       setIsScrolled(window.scrollY > 60);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -41,51 +40,39 @@ export const Navbar: React.FC = () => {
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'bg-ivory/95 backdrop-blur-md py-3 md:py-3.5 border-b border-border-warm shadow-xs'
-            : 'bg-gradient-to-b from-black/75 via-black/40 to-transparent py-5 md:py-7'
+            : 'bg-gradient-to-b from-black/80 via-black/30 to-transparent py-5 md:py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           
-          {/* Logo */}
+          {/* Logo - The official logo already contains the brand mark & typography */}
           <a
             href="#inicio"
-            className="flex items-center gap-3 group focus-visible:outline-none"
+            className="flex items-center group focus-visible:outline-none"
             aria-label="Abancay De Boda - Inicio"
           >
             {STUDIO_INFO.logo ? (
               <img
                 src={STUDIO_INFO.logo}
                 alt={STUDIO_INFO.name}
-                className={`transition-all duration-300 object-contain rounded-xs ${
-                  isScrolled ? 'h-9 md:h-10' : 'h-11 md:h-12 drop-shadow-md'
+                className={`transition-all duration-300 object-contain rounded-full border border-gold/30 ${
+                  isScrolled ? 'h-10 w-10 md:h-11 md:w-11' : 'h-12 w-12 md:h-14 md:w-14 drop-shadow-lg'
                 }`}
               />
-            ) : null}
-            <div className="flex flex-col text-left">
-              <span
-                className={`font-editorial-serif text-lg md:text-xl font-normal tracking-wide leading-none transition-colors duration-300 ${
-                  isScrolled ? 'text-espresso' : 'text-ivory drop-shadow-sm'
-                }`}
-              >
+            ) : (
+              <span className="font-bodoni text-xl text-ivory tracking-wide">
                 {STUDIO_INFO.name}
               </span>
-              <span
-                className={`text-[8px] md:text-[9px] uppercase tracking-[0.3em] font-semibold mt-1 transition-colors duration-300 ${
-                  isScrolled ? 'text-gold' : 'text-gold-light'
-                }`}
-              >
-                Studio Fotográfico
-              </span>
-            </div>
+            )}
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-7 xl:space-x-8" aria-label="Navegación principal">
+          {/* Desktop Navigation - Manrope typography */}
+          <nav className="hidden lg:flex items-center space-x-7 xl:space-x-9" aria-label="Navegación principal">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className={`text-[11px] font-semibold tracking-[0.22em] uppercase transition-colors duration-300 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-gold hover:after:w-full after:transition-all after:duration-300 ${
+                className={`text-[11px] font-semibold tracking-[0.24em] uppercase transition-colors duration-300 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-gold hover:after:w-full after:transition-all after:duration-300 ${
                   isScrolled
                     ? 'text-espresso/80 hover:text-gold'
                     : 'text-ivory/90 hover:text-white drop-shadow-sm'
@@ -102,10 +89,10 @@ export const Navbar: React.FC = () => {
               href={whatsappReservationUrl}
               target="_blank"
               rel="noreferrer"
-              className={`text-[10px] py-2.5 px-5 font-semibold tracking-[0.2em] uppercase rounded-xs transition-all duration-300 flex items-center gap-2 ${
+              className={`text-[10px] py-2.5 px-6 font-semibold tracking-[0.2em] uppercase rounded-xs transition-all duration-300 flex items-center gap-2 ${
                 isScrolled
                   ? 'btn-editorial-gold'
-                  : 'bg-ivory/95 hover:bg-gold hover:text-white text-espresso shadow-lg hover:shadow-xl'
+                  : 'bg-ivory hover:bg-gold hover:text-white text-espresso shadow-xl hover:shadow-2xl'
               }`}
             >
               <span>RESERVAR FECHA</span>
@@ -145,7 +132,7 @@ export const Navbar: React.FC = () => {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="font-editorial-serif text-3xl sm:text-4xl text-ivory hover:text-gold transition-colors font-light tracking-wide"
+                  className="font-sans text-xl sm:text-2xl text-ivory hover:text-gold transition-colors font-light tracking-[0.15em] uppercase"
                 >
                   {link.label}
                 </a>

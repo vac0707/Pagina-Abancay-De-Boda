@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SectionHeading } from '../components/SectionHeading';
-import { PORTFOLIO_ITEMS, PortfolioItem } from '../data/portfolio';
+import { PORTFOLIO_ITEMS } from '../data/portfolio';
 
 const FILTER_CATEGORIES = [
   { key: 'ALL', label: 'TODOS' },
@@ -25,8 +25,52 @@ export const PortfolioSection: React.FC = () => {
     ? PORTFOLIO_ITEMS
     : PORTFOLIO_ITEMS.filter(item => item.category === activeFilter);
 
+  // Dynamic asymmetric composition layout mapper to create photographic magazine pacing
+  const getItemLayout = (index: number) => {
+    const cycle = index % 6;
+    switch (cycle) {
+      case 0:
+        return {
+          colSpan: 'lg:col-span-5',
+          aspect: 'aspect-[3/4]',
+          offset: 'lg:pt-6'
+        };
+      case 1:
+        return {
+          colSpan: 'lg:col-span-7',
+          aspect: 'aspect-[16/10]',
+          offset: ''
+        };
+      case 2:
+        return {
+          colSpan: 'lg:col-span-4',
+          aspect: 'aspect-[4/5]',
+          offset: 'lg:pt-12'
+        };
+      case 3:
+        return {
+          colSpan: 'lg:col-span-8',
+          aspect: 'aspect-[16/9]',
+          offset: ''
+        };
+      case 4:
+        return {
+          colSpan: 'lg:col-span-7',
+          aspect: 'aspect-[16/10]',
+          offset: ''
+        };
+      case 5:
+      default:
+        return {
+          colSpan: 'lg:col-span-5',
+          aspect: 'aspect-[3/4]',
+          offset: 'lg:-mt-8'
+        };
+    }
+  };
+
   return (
-    <section id="portafolio" className="py-28 md:py-40 bg-ivory">
+    <section id="portafolio" className="py-28 md:py-44 bg-ivory">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         <SectionHeading
@@ -37,15 +81,15 @@ export const PortfolioSection: React.FC = () => {
         />
 
         {/* Minimalist Filter Tabs */}
-        <div className="flex justify-center mb-16 overflow-x-auto py-2 px-2 no-scrollbar">
-          <div className="inline-flex items-center gap-4 sm:gap-6 border-b border-border-warm pb-3">
+        <div className="flex justify-center mb-20 overflow-x-auto py-2 px-2 no-scrollbar">
+          <div className="inline-flex items-center gap-5 sm:gap-8 border-b border-border-warm pb-3">
             {FILTER_CATEGORIES.map((tab) => {
               const isActive = activeFilter === tab.key;
               return (
                 <button
                   key={tab.key}
                   onClick={() => setActiveFilter(tab.key)}
-                  className={`text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] uppercase transition-all duration-300 relative ${
+                  className={`text-[10px] sm:text-[11px] font-semibold tracking-[0.24em] uppercase transition-colors relative ${
                     isActive
                       ? 'text-espresso font-bold'
                       : 'text-text-muted hover:text-espresso'
@@ -65,63 +109,55 @@ export const PortfolioSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 80% Photography Editorial Masonry Grid */}
+        {/* Magazine-style Asymmetric Photographic Layout */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-5 sm:gap-7 items-start"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-14 items-start"
         >
           <AnimatePresence>
             {filteredItems.map((item, index) => {
-              // Asymmetric span assignments for rich editorial rhythm
-              const isTwoCols = index % 5 === 0 || index % 5 === 3;
-              const colSpan = isTwoCols ? 'lg:col-span-7' : 'lg:col-span-5';
+              const layout = getItemLayout(index);
 
               return (
                 <motion.div
                   layout
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.4 }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.5 }}
                   key={item.id}
-                  className={`${colSpan} group relative overflow-hidden bg-espresso rounded-xs shadow-md border border-border-warm cursor-pointer`}
+                  className={`${layout.colSpan} ${layout.offset} group relative overflow-hidden bg-espresso rounded-xs cursor-pointer shadow-xs`}
                 >
-                  <div className={`relative w-full ${
-                    item.aspect === 'vertical' 
-                      ? 'aspect-[3/4]' 
-                      : item.aspect === 'horizontal' 
-                      ? 'aspect-[16/10]' 
-                      : 'aspect-square'
-                  }`}>
+                  <div className={`relative w-full ${layout.aspect} overflow-hidden`}>
                     <img
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 filter brightness-[0.93] group-hover:brightness-100"
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-102 filter brightness-[0.95] group-hover:brightness-100"
                     />
 
-                    {/* Gradient Overlay */}
+                    {/* Gradient Reveal on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-espresso/90 via-espresso/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Top right discover pill */}
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/70 backdrop-blur-md text-[9px] uppercase tracking-[0.25em] text-ivory font-semibold rounded-xs border border-white/10">
-                        DESCUBRIR <ArrowUpRight size={11} />
+                    {/* Minimalist Hover Content: Categoría, Título, Ubicación, Año, Ver historia → */}
+                    <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="text-[10px] uppercase tracking-[0.3em] text-gold-light font-semibold mb-1">
+                        {item.categoryLabel}
                       </span>
-                    </div>
-
-                    {/* Meta info revealed on hover / readable on mobile */}
-                    <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-                      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.25em] text-gold font-semibold mb-1">
-                        <span>{item.categoryLabel}</span>
-                        <span>{item.year}</span>
-                      </div>
-                      <h4 className="font-bodoni text-xl sm:text-2xl text-ivory font-light">
+                      
+                      <h4 className="font-bodoni text-2xl sm:text-3xl text-ivory font-light mb-1">
                         {item.title}
                       </h4>
-                      <p className="text-xs text-ivory/70 font-light mt-0.5">
-                        {item.location}
-                      </p>
+
+                      <div className="flex items-center justify-between text-xs text-ivory/70 pt-2 border-t border-white/10 mt-3 font-light">
+                        <span className="uppercase tracking-wider text-[10px]">
+                          {item.location} · {item.year}
+                        </span>
+
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider text-gold-light">
+                          Ver historia <ArrowUpRight size={12} />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

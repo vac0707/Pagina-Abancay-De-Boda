@@ -28,11 +28,6 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
 
   return (
     <div className={`relative mb-14 md:mb-20 ${isCenter ? 'text-center max-w-2xl mx-auto' : 'max-w-xl'} ${className}`}>
-      {/* Delicate background halo circle accent */}
-      <div 
-        className={`brand-circle-accent w-48 h-48 -top-12 ${isCenter ? 'left-1/2 -translate-x-1/2' : '-left-8'} opacity-20 pointer-events-none`}
-      />
-
       {eyebrow && (
         <span 
           className={`block text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.35em] mb-3 ${

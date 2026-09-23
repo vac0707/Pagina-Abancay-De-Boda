@@ -16,10 +16,7 @@ export const FeaturedFilmSection: React.FC<FeaturedFilmSectionProps> = ({ onPlay
   const featuredVideo = VIDEOS.bodas[1] || VIDEOS.bodas[0];
 
   return (
-    <section className="relative py-24 md:py-36 bg-espresso text-ivory overflow-hidden">
-      {/* Subtle organic watermark circle */}
-      <div className="brand-circle-accent w-[600px] h-[600px] -left-48 top-1/2 -translate-y-1/2 opacity-10" />
-
+    <section className="relative py-24 md:py-36 bg-espresso text-ivory">
       <div className="relative max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
@@ -37,7 +34,7 @@ export const FeaturedFilmSection: React.FC<FeaturedFilmSectionProps> = ({ onPlay
         </div>
 
         {/* 50/50 Editorial Composition */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           
           {/* Left Side: Photographic Art piece */}
           <div className="lg:col-span-6">
@@ -47,7 +44,7 @@ export const FeaturedFilmSection: React.FC<FeaturedFilmSectionProps> = ({ onPlay
                   src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1200"
                   alt="Fotografía de boda de autor"
                   loading="lazy"
-                  className="w-full h-full object-cover filter brightness-90 contrast-105 group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover filter brightness-[0.92] contrast-102 group-hover:scale-103 transition-transform duration-700 ease-out"
                 />
                 
                 {/* Editorial Caption Tag */}
@@ -60,8 +57,8 @@ export const FeaturedFilmSection: React.FC<FeaturedFilmSectionProps> = ({ onPlay
                   <p className="font-bodoni text-xl sm:text-2xl text-ivory font-light italic">
                     "Un instante detenido se vuelve eterno."
                   </p>
-                  <p className="text-[11px] text-ivory/60 font-light mt-1 uppercase tracking-wider">
-                    Fotografía en 35mm & Gran Formato
+                  <p className="text-[11px] text-ivory/60 font-medium mt-1 uppercase tracking-[0.2em]">
+                    FOTOGRAFÍA DE AUTOR
                   </p>
                 </div>
               </div>
